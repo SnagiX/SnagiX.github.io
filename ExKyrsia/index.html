@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <!-- META TAGS -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+
+            <!-- SEO -->
+            <meta name="robots" content="index, follow" />
+            <meta name="description" content="ExKyrsia | Сервис по AR экскурсиям" />
+            <meta name="keywords" content="ExKyrsia" />
+            <title>ExKyrsia | Сервис по AR экскурсиям</title>
+
+        <!-- FONTS -->
+        <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" />
+
+        <!-- CSS -->
+        <link href="assets/css/root.css" rel="stylesheet" />
+
+        <!-- JS -->
+        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+        <!-- <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.2.2/aframe/build/aframe-ar.js"></script> -->
+        <script src="assets/js/root.js"></script>
+
+    </head>
+    <body
+        style="
+            margin: 0;
+            overflow: hidden;
+        "
+    >
+        <div class="ar-title">
+            <div class="ar-title__box" style="opacity: 0;">
+                <h2 class="ar-title__title">Title</h2>
+            </div>
+        </div>
+        <div class="ar-menu">
+            <div class="ar-menu__left">
+                <div class="ar-button ar-button_leave">
+                    <i class=" fa fa-chevron-circle-left"></i>
+                </div>
+            </div>
+            <div class="ar-menu__right ar-menu_main">
+                <div ar-button__menu_main class="ar-button ar-button_menu">
+                    <i ar-button__menu_main class="fa fa-bars"></i>
+                </div>
+                <div ar-button__content class="ar-button_hidden ar-button ar-button_item" f-button="display_fullscreen">
+                    <i class="fa fa-expand" f-button="display_fullscreen"></i>
+                </div>
+                <div ar-button__content class="ar-button_hidden ar-button ar-button_item" f-button="page_reload">
+                    <i class="fa fa-sync-alt" f-button="page_reload"></i>
+                </div>
+            </div>
+            <div class="ar-menu__right ar-menu_object d-none">
+                <div ar-button__menu_object class="ar-button ar-button_menu">
+                    <i ar-button__menu_object class="fa fa-cube"></i>
+                </div>
+            </div>
+        </div>
+        <a-scene 
+            id="a_scene"
+            vr-mode-ui="false" 
+            arjs='
+                sourceType: webcam; 
+                debugUIEnabled: false; 
+                detectionMode: color_and_matrix; 
+                trackingMethod: best; 
+                matrixCodeType: 4x4; 
+                sourceWidth: 1280; 
+                sourceHeight: 960; 
+                displayWidth: 1280; 
+                displayHeight: 960;
+            '
+            inspector="url: xxx" 
+            embedded
+        >   
+            <a-entity id="a-camera" camera></a-entity>
+            <a-marker title="Маркер - обычная коробка" preset="hiro" markerevents>
+                <a-box
+                    position="0 0.5 0"
+                >
+
+                </a-box>
+            </a-marker>
+        </a-scene>
+    </body>
+</html>
