@@ -64,10 +64,16 @@
             embedded
         >   
             <a-entity camera></a-entity>
-            <a-marker title="Маркер - обычная коробка" preset="hiro" eventsmarker>
-                <a-box
-                    position="0 0.5 0"
+            <a-marker smooth="true" title="Маркер - обычная коробка" preset="hiro" eventsmarker>
+                <a-entity
+                    gltf-model="assets/referenses/models/1_vrBox/1_vrBox.gltf"
+                    scale="0.5 0.5 0.5"
+                    rotation="-90 0 0"
+                    position="0 -0.5 0"
                 >
+                    <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
+                    <a-light type="point" intensity="1" position="0 0 -1.2"></a-light>
+                </a-entity>
 
                 </a-box>
             </a-marker>

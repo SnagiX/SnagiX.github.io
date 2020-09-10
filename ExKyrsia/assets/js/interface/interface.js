@@ -1,9 +1,13 @@
 class Interface {
 
     fa_icons = {
-       root: "fa",
-       leave: "fa-chevron-circle-left",
-       menu: "fa-bars",
+        tag: "i",
+        class_root: "fa",
+        class: {
+            leave: "fa-chevron-circle-left",
+            menu: "fa-bars",
+            
+        }
     }
 
     constructor(container) {
