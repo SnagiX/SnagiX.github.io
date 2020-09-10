@@ -4,7 +4,25 @@ class Interface {
         this.container = container;
         this.ScrollReveal = ScrollReveal();
         this.body = document.querySelectorAll("body")[0];
-        console.log(this.container);
+        // Exceptions container:
+        this.exceptions = {};
+    }
+
+    // Exceptions:
+
+    interfaceException(flag, message) {
+        switch (flag) {
+            case "INIT_INTERFACE":
+                this.exceptions.INIT_INTERFACE = 1;
+            break;
+            case "MENU_SYSTEM":
+                this.exceptions.MENU_SYSTEM = 1;
+            break;
+            default:
+                this.exceptions.GENERAL = 1;
+            break;
+        }
+        console.error("Interface exception -", message);
     }
     
     // Args for drawMenu:
@@ -14,15 +32,23 @@ class Interface {
     // MENU_OBJETS      - menu when objects more than two
 
     drawMenu(args = []) {
-        if (args.includes("INIT_INTERFACE")) {
+        if (this.exceptions.GENERAL === 1) throw console.error("Interface exception - unknown error");
+        if (args.includes("INIT_INTERFACE") && this.exceptions.INIT_INTERFACE !== 0) {
             this._initInterface();
-        } else if (args.includes("MENU_SYSTEM")) {
+        } else if (args.includes("MENU_SYSTEM") && this.exceptions.MENU_SYSTEM !== 0) {
             this._menuSystem();
         }
     }
 
     _menuSystem() {
         
+        // right container:
+        
+        var menu_right = document.getElementsByClassName("menu-container_risght")[0];
+            if (typeof menu_right == "undefined") {
+                throw this.interfaceException("MENU_SYSTEM", "incorrect class name or class doesn't exists");
+            }
+
     }
 
     _initInterface() {
