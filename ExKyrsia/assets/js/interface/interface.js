@@ -1,5 +1,11 @@
 class Interface {
 
+    fa_icons = {
+       root: "fa",
+       leave: "fa-chevron-circle-left",
+       menu: "fa-bars",
+    }
+
     constructor(container) {
         this.container = container;
         this.ScrollReveal = ScrollReveal();
@@ -40,53 +46,96 @@ class Interface {
         }
     }
 
-    _menuSystem() {
-        
-        // right container:
-        
-        var menu_right = document.getElementsByClassName("menu-container_risght")[0];
-            if (typeof menu_right == "undefined") {
-                throw this.interfaceException("MENU_SYSTEM", "incorrect class name or class doesn't exists");
+        // returns: bool (0 || 1)
+        //
+        // Args for _deleteMenuElements:
+        // REMOVE_CLASSES       - delete classes of root DOM tag
+        // REMOVE_ID            - delete id of root DOM tag
+
+        _deleteMenuElements(element, flags = [], dict = {}) {
+            if (typeof element != "object") return 0;
+
+            // removing childNodes:
+
+            element.innerHTML = "";
+            
+            // Remove some attributes from DOM tag:
+
+            switch (flags) {
+                case flags.includes("REMOVE_CLASSES"):
+                    element.classList.setAttribute("class", "");
+                    break;
+                case flags.includes("REMOVE_ID"):
+                    element.setAttribute("id", "");
+                    break;
             }
 
-    }
-
-    _initInterface() {
-                    
-        //Create menu containers (left & right):
-        var menu_left = document.createElement("div");
-            menu_left.classList.add("ar-interface__menu-container");
-            menu_left.classList.add("menu-container_left");
-            
-            // leave button:
-
-            var leave_button = document.createElement("div");
-                leave_button.innerHTML += `<i class="fa fa-chevron-circle-left"></i>`;
-                leave_button.setAttribute("class", "menu-container__element_root css-interface-leave");
-
-                menu_left.appendChild(leave_button);
-
-            this.container.appendChild(menu_left);
-        
-        var menu_right = document.createElement("div");
-            menu_right.classList.add("ar-interface__menu-container");
-            menu_right.classList.add("menu-container_right");
-            menu_right.setAttribute("isopened", "false");
-
-        this.container.appendChild(menu_right);
-
-    }
-
-    _generate_token(length) {
-        // edit the token allowed characters
-        var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-        var b = [];  
-        for (var i=0; i<length; i++) {
-            var j = (Math.random() * (a.length-1)).toFixed(0);
-            b[i] = a[j];
+            return 1;
         }
-        return b.join("");
-    }
+
+        _menuSystem() {
+            
+            // right container:
+            
+            var menu_right = document.getElementsByClassName("menu-container_right")[0];
+                if (typeof menu_right == "undefined") {
+                    throw this.interfaceException("MENU_SYSTEM", "incorrect class name or class doesn't exists");
+                } else {
+
+                    // delete everything before:
+
+                    if(this._deleteMenuElements(menu_right) != 1) {
+                        throw this.interfaceException("MENU_SYSTEM", "cannot clear elements in "+menu_right);
+                    }
+
+                }
+                
+                // draw system menu:
+
+                var menu_root_btn = document.createElement("div");
+                    menu_root_btn.classList.add("menu-container__element_root");
+                    menu_root_btn.innerHTML += `<i ar-button__menu_main class="fa fa-bars"></i>`;
+
+                    menu_right.appendChild(menu_root_btn);
+                
+        }
+
+        _initInterface() {
+                        
+            //Create menu containers (left & right):
+            var menu_left = document.createElement("div");
+                menu_left.classList.add("ar-interface__menu-container");
+                menu_left.classList.add("menu-container_left");
+                
+                // leave button:
+
+                var leave_button = document.createElement("div");
+                    leave_button.innerHTML += `<i class="fa fa-chevron-circle-left"></i>`;
+                    leave_button.setAttribute("class", "menu-container__element_root css-interface-leave");
+
+                    menu_left.appendChild(leave_button);
+
+                this.container.appendChild(menu_left);
+            
+            var menu_right = document.createElement("div");
+                menu_right.classList.add("ar-interface__menu-container");
+                menu_right.classList.add("menu-container_right");
+                menu_right.setAttribute("isopened", "false");
+
+            this.container.appendChild(menu_right);
+
+        }
+
+        _generate_token(length) {
+            // edit the token allowed characters
+            var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
+            var b = [];  
+            for (var i=0; i<length; i++) {
+                var j = (Math.random() * (a.length-1)).toFixed(0);
+                b[i] = a[j];
+            }
+            return b.join("");
+        }
 
 
 
@@ -117,7 +166,6 @@ class Interface {
         ScrollReveal().destroy();
 
         function afterRevealFunc() {
-
             setTimeout(() => {
                 textbox.remove();
             }, 1500);
@@ -134,7 +182,7 @@ class Interface {
 }
 
 
-{/* <div class="ar-interface__menu-container menu-container_left">
+{/* <div class="ar-interface__menu-container menu-container_left" isopened="false">
     <div class="menu-container__element_root css-interface-leave">
         <i class="fa fa-chevron-circle-left"></i>
     </div>
