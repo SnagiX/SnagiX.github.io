@@ -18,10 +18,19 @@
         <link href="assets/css/root.css" rel="stylesheet" />
 
         <!-- JS -->
-        <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-        <!-- <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/2.2.2/aframe/build/aframe-ar.js"></script> -->
-        <script src="assets/js/root.js"></script>
+
+            <!-- AR -->
+            <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+            <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+            <!-- ANIMATIONS -->
+            <script src="https://unpkg.com/scrollreveal"></script>
+
+            <!-- MODULES -->
+
+            <script src="assets/js/interface/interface.js"></script>
+        
+        <script src="assets/js/ar.js"></script>
 
     </head>
     <body
@@ -30,36 +39,15 @@
             overflow: hidden;
         "
     >
-        <div class="ar-title">
-            <div class="ar-title__box" style="opacity: 0;">
+        <!-- <div class="ar-title">
+            <div class="ar-title__box">
                 <h2 class="ar-title__title">Title</h2>
             </div>
-        </div>
-        <div class="ar-menu">
-            <div class="ar-menu__left">
-                <div class="ar-button ar-button_leave">
-                    <i class=" fa fa-chevron-circle-left"></i>
-                </div>
-            </div>
-            <div class="ar-menu__right ar-menu_main">
-                <div ar-button__menu_main class="ar-button ar-button_menu">
-                    <i ar-button__menu_main class="fa fa-bars"></i>
-                </div>
-                <div ar-button__content class="ar-button_hidden ar-button ar-button_item" f-button="display_fullscreen">
-                    <i class="fa fa-expand" f-button="display_fullscreen"></i>
-                </div>
-                <div ar-button__content class="ar-button_hidden ar-button ar-button_item" f-button="page_reload">
-                    <i class="fa fa-sync-alt" f-button="page_reload"></i>
-                </div>
-            </div>
-            <div class="ar-menu__right ar-menu_object d-none">
-                <div ar-button__menu_object class="ar-button ar-button_menu">
-                    <i ar-button__menu_object class="fa fa-cube"></i>
-                </div>
-            </div>
+        </div> -->
+        <div class="ar-interface">
+
         </div>
         <a-scene 
-            id="a_scene"
             vr-mode-ui="false" 
             arjs='
                 sourceType: webcam; 
@@ -75,14 +63,23 @@
             inspector="url: xxx" 
             embedded
         >   
-            <a-entity id="a-camera" camera></a-entity>
-            <a-marker title="Маркер - обычная коробка" preset="hiro" markerevents>
-                <a-box
-                    position="0 0.5 0"
+            <a-entity camera></a-entity>
+            <a-marker smooth="true" title="Маркер - обычная коробка" preset="hiro" eventsmarker>
+                <a-entity
+                    gltf-model="assets/referenses/models/1_vrBox/1_vrBox.gltf"
+                    scale="0.5 0.5 0.5"
+                    rotation="-90 0 0"
+                    position="0 -0.5 0"
                 >
+                    <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
+                    <a-light type="point" intensity="1" position="0 0 -1.2"></a-light>
+                </a-entity>
 
                 </a-box>
             </a-marker>
         </a-scene>
+
+        
+
     </body>
 </html>

@@ -1,0 +1,150 @@
+/* <div class="ar-title">
+<div class="ar-title__box" style="opacity: 0;">
+    <h2 class="ar-title__title">Title</h2>
+</div>
+</div>
+<div class="ar-menu">
+<div class="ar-menu__left">
+    <div class="ar-button ar-button_leave">
+        <i class=" fa fa-chevron-circle-left"></i>
+    </div>
+</div>
+<div class="ar-menu__right ar-menu_main">
+    <div ar-button__menu_main class="ar-button ar-button_menu">
+        <i ar-button__menu_main class="fa fa-bars"></i>
+    </div>
+    <div ar-button__content class="ar-button_hidden ar-button ar-button_item" f-button="display_fullscreen">
+        <i class="fa fa-expand" f-button="display_fullscreen"></i>
+    </div>
+    <div ar-button__content class="ar-button_hidden ar-button ar-button_item" f-button="page_reload">
+        <i class="fa fa-sync-alt" f-button="page_reload"></i>
+    </div>
+</div>
+<div class="ar-menu__right ar-menu_object d-none">
+    <div ar-button__menu_object class="ar-button ar-button_menu">
+        <i ar-button__menu_object class="fa fa-cube"></i>
+    </div>
+</div>
+</div> */
+
+
+
+.ar-menu {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    min-height: 50px;
+    padding: 10px 0px 10px 0px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+.ar-menu__left {
+    float: left;
+    max-width: 70px;
+}
+.ar-menu__right {
+    float: right;
+    display: flex;
+    flex-wrap: nowrap;
+    min-width: 100px;
+    flex-direction: row-reverse;
+}
+.ar-menu__content {
+
+}
+
+.ar-title {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 40px;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+}
+.ar-title__box {
+    background: white;
+    text-align: center;
+    padding: 5px 25px 5px 25px;
+    min-width: 100px;
+    width: auto;
+    font-family: sans-serif;
+    border-radius: 25px;
+}
+.ar-title__title {
+    padding: 0px;
+}
+
+.ar-button {
+    width: 50px;
+    height: 50px;
+    background: white;
+    margin: 0px 10px 0px 10px;
+    border-radius: 100%;
+    cursor: pointer;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+}
+
+/* Colors for .ar-button: */
+
+    /* standard */
+    .ar-button {
+        color: rgb(0, 0, 0);
+        transition: all .2s ease-in;
+    }
+    .ar-button:hover {
+        transition: all .2s ease-out;
+        background: rgb(0, 0, 0) !important;
+        color: rgb(255, 255, 255) !important;
+    }
+
+    /* leave */
+    .ar-button_leave {
+        color: rgb(223, 71, 104);
+        transition: all .2s ease-in;
+    }
+    .ar-button_leave:hover {
+        transition: all .2s ease-out;
+        background: rgb(223, 71, 104) !important;
+        color: rgb(255, 255, 255) !important;
+    }
+
+    /* menu */
+    .ar-button_menu {
+        color: rgb(76, 104, 146);
+        transition: all .2s ease-in;
+    }
+    .ar-button_menu:hover {
+        transition: all .2s ease-out;
+        background: rgb(76, 104, 146) !important;
+        color: rgb(255, 255, 255) !important;
+    }
+
+/* Propreties for .ar-button: */
+
+    /* hidden */
+    .ar-button_hidden {
+        display: none;
+    }
+    
+    /* visible */
+    .ar-button_visible {
+        display: block;
+    }
+
+/* other */
+
+.d-none {
+    display: none;
+}
+.d-block {
+    display: block;
+}
