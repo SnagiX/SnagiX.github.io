@@ -56,41 +56,41 @@ class Interface {
         // REMOVE_CLASSES       - delete classes of root DOM tag
         // REMOVE_ID            - delete id of root DOM tag
 
-        _deleteMenuElements(element, flags = [], dict = {}) {
-            if (typeof element != "object") return 0;
+        // _deleteMenuElements(element = document.createElement("div"), flags = [], dict = {}) {
+        //     if (typeof element != "object") return 0;
 
-            // removing childNodes:
-
-            element.innerHTML = "";
+        //     console.log(element.childNodes);
             
-            // Remove some attributes from DOM tag:
+        //     // Remove some attributes from DOM tag:
 
-            switch (flags) {
-                case flags.includes("REMOVE_CLASSES"):
-                    element.classList.setAttribute("class", "");
-                    break;
-                case flags.includes("REMOVE_ID"):
-                    element.setAttribute("id", "");
-                    break;
-            }
+        //     switch (flags) {
+        //         case flags.includes("REMOVE_CLASSES"):
+        //             element.setAttribute("class", " ");
+        //             break;
+        //         case flags.includes("REMOVE_ID"):
+        //             element.setAttribute("id", " ");
+        //             break;
+        //     }
 
-            return 1;
-        }
+        //     return 1;
+        // }
 
         _menuSystem() {
             
             // right container:
             
-            var menu_right = document.getElementsByClassName("menu-container_right")[0];
-                if (typeof menu_right == "undefined") {
+            var menu_right = document.querySelector(".menu-container_right");
+                if (typeof menu_right !== "object") {
                     throw this.interfaceException("MENU_SYSTEM", "incorrect class name or class doesn't exists");
                 } else {
 
                     // delete everything before:
+                    
+                    // if(this._deleteMenuElements(menu_right, ["REMOVE_CLASSES"]) != 1) {
+                    //     throw this.interfaceException("MENU_SYSTEM", "cannot clear elements in "+menu_right);
+                    // }
 
-                    if(this._deleteMenuElements(menu_right) != 1) {
-                        throw this.interfaceException("MENU_SYSTEM", "cannot clear elements in "+menu_right);
-                    }
+                    menu_right.innerHTML = " ";
 
                 }
                 
@@ -166,8 +166,8 @@ class Interface {
 
 
         // ANIMATION
-
-        ScrollReveal().destroy();
+        
+        // ScrollReveal().destroy();
 
         function afterRevealFunc() {
             setTimeout(() => {
