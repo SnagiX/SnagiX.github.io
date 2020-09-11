@@ -45,7 +45,7 @@
             </div>
         </div> -->
         <div class="ar-interface">
-
+            
         </div>
         <a-scene 
             vr-mode-ui="false" 
@@ -59,14 +59,15 @@
                 sourceHeight: 960; 
                 displayWidth: 1280; 
                 displayHeight: 960;
+                patternRatio: 0.85;
             '
             inspector="url: xxx" 
             embedded
         >   
             <a-entity camera></a-entity>
-            <a-marker smooth="true" title="Маркер - обычная коробка" type='pattern' url="assets/referenses/markers/1_pattern-marker.patt" eventsmarker>
+            <a-marker smooth="true" title="Маркер - обычная коробка" type='pattern' preset="hiro" eventsmarker>
                 <a-entity
-                    gltf-model="assets/referenses/models/1_vrBox/1_vrBox.gltf"
+                    gltf-model="/assets/referenses/models/1_vrBox/1_vrBox.gltf"
                     scale="0.5 0.5 0.5"
                     rotation="-90 0 0"
                     position="0 -0.5 0"

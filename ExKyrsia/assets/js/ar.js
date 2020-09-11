@@ -10,9 +10,6 @@ AFRAME.registerComponent("eventsmarker", {
 
             // Interface:
             var interface = new Interface(document.querySelector(".ar-interface"));
-            interface.container = document.querySelector(".ar-interface");
-            interface.drawMenu(["INIT_INTERFACE"]);
-            interface.drawMenu(["MENU_SYSTEM"]);
 
             ScrollReveal().reveal('.ar-interface', {
                 delay: 50,
