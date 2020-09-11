@@ -65,15 +65,29 @@
             embedded
         >   
             <a-entity camera></a-entity>
-            <a-marker smooth="true" title="Маркер - обычная коробка" type='pattern' preset="hiro" eventsmarker>
-                <a-entity
-                    gltf-model="/assets/referenses/models/1_vrBox/1_vrBox.gltf"
+            <a-marker smooth="true" title="Маркер - VR headset demo" type='pattern' url="assets/referenses/markers/1_pattern-marker.patt" eventsmarker>
+
+                <!-- Layers of ar object: -->
+                <!-- FRIST: editing (scale, position, rotation, etc.) -->
+                <a-entity class="ar-obj_edit"
                     scale="0.5 0.5 0.5"
                     rotation="-90 0 0"
                     position="0 -0.5 0"
                 >
-                    <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
-                    <a-light type="point" intensity="1" position="0 0 -1.2"></a-light>
+                    <!-- Then goes animation layer (scaleUp & Down, rotation, etc.) -->
+                    <a-entity class="ar-obj_animation"
+                    
+                    >
+
+                        <!-- Finally goes model -->
+                        <a-entity gltf-model="assets/referenses/models/1_vrBox/1_vrBox.gltf">
+
+                            <!-- Light could be here, but I'll remove it in product-version -->
+                            <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
+                            <a-light type="point" intensity="1" position="0 0 -1.2"></a-light>
+    
+                        </a-entity>
+                    </a-entity>
                 </a-entity>
             </a-marker>
         </a-scene>

@@ -1,24 +1,26 @@
- 
+// Interface:
+var _interface = new Interface();
+
 document.addEventListener("DOMContentLoaded", () => {
-        
+    
+    _interface.init(document.querySelector(".ar-interface"));
+
+    ScrollReveal().reveal('.ar-interface', {
+        delay: 50,
+        distance: '70px',
+        reset: false,
+        duration: 500,
+        interval: 150,
+        scale: 0.8,
+    });
 });
+
+////////////
+// EVENTS //
+////////////
 
 AFRAME.registerComponent("eventsmarker", {
     init: function () {
-
-        // Modules:
-
-            // Interface:
-            var interface = new Interface(document.querySelector(".ar-interface"));
-
-            ScrollReveal().reveal('.ar-interface', {
-                delay: 50,
-                distance: '70px',
-                reset: true,
-                duration: 500,
-                interval: 150,
-                scale: 0.8
-            });
 
         var marker = this.el;
         marker.setAttribute('emitevents', 'true');
@@ -31,7 +33,7 @@ AFRAME.registerComponent("eventsmarker", {
                 // Modules:
 
                     // Interface:
-                    interface.showTitle(marker);
+                    _interface.showTitle(marker);
                         
             });
 
@@ -40,3 +42,11 @@ AFRAME.registerComponent("eventsmarker", {
             });
     }
 });
+
+document.addEventListener("click", (e) => {
+    let el = e.target;
+
+    // Interface functions:
+
+    _interface.btnClickEvent(el);
+})
