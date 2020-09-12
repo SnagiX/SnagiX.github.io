@@ -4,6 +4,7 @@ var _interface = new Interface();
 document.addEventListener("DOMContentLoaded", () => {
     
     _interface.init(document.querySelector(".ar-interface"));
+    _interface.markerMenu("system");
 
     ScrollReveal().reveal('.ar-interface', {
         delay: 50,
@@ -18,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
 ////////////
 // EVENTS //
 ////////////
+
+// AFRAME
 
 AFRAME.registerComponent("eventsmarker", {
     init: function () {
@@ -34,14 +37,20 @@ AFRAME.registerComponent("eventsmarker", {
 
                     // Interface:
                     _interface.showTitle(marker);
+                    _interface.markerMenu("marker");
                         
             });
 
             marker.addEventListener('markerLost', function () {
+                // Modules:
 
+                    // Interface:
+                    _interface.markerMenu("system");
             });
     }
 });
+
+// CLICK
 
 document.addEventListener("click", (e) => {
     let el = e.target;

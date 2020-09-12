@@ -22,34 +22,90 @@ class Interface {
 
         this.nodeList.container = container;
 
-        //Create menu containers (left & right):
+        //Create SYSTEM menu containers (left & right):
         var menu_left = document.createElement("div");
-        menu_left.classList.add("ar-interface__menu-container");
-        menu_left.classList.add("menu-container_left");
+            menu_left.classList.add("ar-interface__menu-container");
+            menu_left.classList.add("menu-container_left");
         
-        // leave button:
+            // leave button:
 
-        var leave_button = document.createElement("div");
-            leave_button.innerHTML += `<i class="fa fa-chevron-circle-left" f-interface="leave"></i>`;
-            leave_button.setAttribute("class", "menu-container__element_root css-interface-leave");
+            var leave_button = document.createElement("div");
+                leave_button.innerHTML += `<i class="fa fa-chevron-circle-left" f-interface="leave"></i>`;
+                leave_button.setAttribute("class", "menu-container__element_root css-interface-leave");
 
-            // Set function to this button: 
+                // Set function to this button: 
 
-            leave_button.setAttribute("f-interface", "leave");
+                leave_button.setAttribute("f-interface", "leave");
 
-            // Append created DOM obj.:
+                //Write variable in nodeList:
 
-            menu_left.appendChild(leave_button);
+                this.nodeList.leave_button = leave_button;
+
+                // Append created DOM obj.:
+
+                menu_left.appendChild(leave_button);
+
+        //Write variable in nodeList:
+
+        this.nodeList.menu_left = menu_left;
+
+        // Append created DOM obj.:
 
         this.nodeList.container.appendChild(menu_left);
+
+
     
         var menu_right = document.createElement("div");
             menu_right.classList.add("ar-interface__menu-container");
             menu_right.classList.add("menu-container_right");
             menu_right.setAttribute("isopened", "false");
 
+            // Bars button:
+
+            var bars_button = document.createElement("div");
+                bars_button.innerHTML += `<i class="fa fa-dot-circle" f-interface="menutoggler"></i>`;
+                bars_button.setAttribute("class", "menu-container__element_root");
+
+                // Set function to this button: 
+
+                bars_button.setAttribute("f-interface", "menutoggler");
+
+                //Write variable in nodeList:
+
+                this.nodeList.bars_button = bars_button;
+
+                // Append created DOM obj.:
+
+                menu_right.appendChild(bars_button);
+        
+        //Write variable in nodeList:
+
+        this.nodeList.menu_right = menu_right;
+
+        // Append created DOM obj.:
+
         this.nodeList.container.appendChild(menu_right);
 
+    }
+
+    // Marker menu (val : str ("system" || "marker" || "markers" (unavailable)):
+    
+    markerMenu(val) {
+        switch (val) {
+            case "system":
+                this._systemMenu();
+                break;
+
+            case "marker":
+
+                break;
+        
+            case "markers":
+
+                break;
+            default:
+                return;
+        }
     }
 
     //Show title function:
@@ -130,6 +186,19 @@ class Interface {
         return b.join("");
     }
 
+    // Some methods for markerMenu:
 
+        //System menu:
+        _systemMenu() {
+            console.log(this.nodeList);
+            var bars_button = this.nodeList.bars_button;
+
+            var bars_button_icon = bars_button.children;
+                if (bars_button.children.length != 1) return;
+                bars_button_icon = bars_button.children[0];
+
+                bars_button_icon.setAttribute("class", "fa fa-bars");
+            
+        }
 
 }
