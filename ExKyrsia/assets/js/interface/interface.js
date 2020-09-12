@@ -97,7 +97,7 @@ class Interface {
                 break;
 
             case "marker":
-
+                this._markerMenu();
                 break;
         
             case "markers":
@@ -199,6 +199,17 @@ class Interface {
 
                 bars_button_icon.setAttribute("class", "fa fa-bars");
             
+        }
+
+        //Marker menu:
+        _markerMenu() {
+            var bars_button = this.nodeList.bars_button;
+            
+            var bars_button_icon = bars_button.children;
+                if (bars_button.children.length != 1) return;
+                bars_button_icon = bars_button.children[0];
+
+                bars_button_icon.setAttribute("class", "fa fa-cube");
         }
 
 }
