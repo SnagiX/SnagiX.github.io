@@ -37,8 +37,8 @@ AFRAME.registerComponent("eventsmarker", {
 
                     // Interface:
                     _interface.showTitle(marker);
+                    _interface.vibrate(45);
                     _interface.markerMenu("marker");
-                        
             });
 
             marker.addEventListener('markerLost', function () {

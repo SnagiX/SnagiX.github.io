@@ -22,70 +22,173 @@ class Interface {
 
         this.nodeList.container = container;
 
-        //Create SYSTEM menu containers (left & right):
-        var menu_left = document.createElement("div");
-            menu_left.classList.add("ar-interface__menu-container");
-            menu_left.classList.add("menu-container_left");
+        // //Create SYSTEM menu containers (left & right):
+        // var menu_left = document.createElement("div");
+        //     menu_left.classList.add("ar-interface__menu-container");
+        //     menu_left.classList.add("menu-container_left");
         
-            // leave button:
+        //     // leave button:
 
-            var leave_button = document.createElement("div");
-                leave_button.innerHTML += `<i class="fa fa-chevron-circle-left" f-interface="leave"></i>`;
-                leave_button.setAttribute("class", "menu-container__element_root css-interface-leave");
+        //     var leave_button = document.createElement("div");
+        //         leave_button.innerHTML += `<i class="fa fa-chevron-circle-left" f-interface="leave"></i>`;
+        //         leave_button.setAttribute("class", "menu-container__element_root css-interface-leave");
 
-                // Set function to this button: 
+        //         // Set function to this button: 
 
-                leave_button.setAttribute("f-interface", "leave");
+        //         leave_button.setAttribute("f-interface", "leave");
 
-                //Write variable in nodeList:
+        //         //Write variable in nodeList:
 
-                this.nodeList.leave_button = leave_button;
+        //         this.nodeList.leave_button = leave_button;
 
-                // Append created DOM obj.:
+        //         // Append created DOM obj.:
 
-                menu_left.appendChild(leave_button);
+        //         menu_left.appendChild(leave_button);
 
-        //Write variable in nodeList:
+        // //Write variable in nodeList:
 
-        this.nodeList.menu_left = menu_left;
+        // this.nodeList.menu_left = menu_left;
 
-        // Append created DOM obj.:
+        // // Append created DOM obj.:
 
-        this.nodeList.container.appendChild(menu_left);
+        // this.nodeList.container.appendChild(menu_left);
 
 
     
-        var menu_right = document.createElement("div");
-            menu_right.classList.add("ar-interface__menu-container");
-            menu_right.classList.add("menu-container_right");
-            menu_right.setAttribute("isopened", "false");
+        // var menu_right = document.createElement("div");
+        //     menu_right.classList.add("ar-interface__menu-container");
+        //     menu_right.classList.add("menu-container_right");
+        //     menu_right.setAttribute("isopened", "false");
 
-            // Bars button:
+        //     // Bars button:
 
-            var bars_button = document.createElement("div");
-                bars_button.innerHTML += `<i class="fa fa-dot-circle" f-interface="menutoggler"></i>`;
-                bars_button.setAttribute("class", "menu-container__element_root");
+        //     var bars_button = document.createElement("div");
+        //         bars_button.innerHTML += `<i class="fa fa-dot-circle" f-interface="menutoggler"></i>`;
+        //         bars_button.setAttribute("class", "menu-container__element_root");
 
-                // Set function to this button: 
+        //         // Set function to this button: 
 
-                bars_button.setAttribute("f-interface", "menutoggler");
+        //         bars_button.setAttribute("f-interface", "menutoggler");
 
-                //Write variable in nodeList:
+        //         //Write variable in nodeList:
 
-                this.nodeList.bars_button = bars_button;
+        //         this.nodeList.bars_button = bars_button;
 
-                // Append created DOM obj.:
+        //         // Append created DOM obj.:
 
-                menu_right.appendChild(bars_button);
+        //         menu_right.appendChild(bars_button);
         
-        //Write variable in nodeList:
+        // //Write variable in nodeList:
 
-        this.nodeList.menu_right = menu_right;
+        // this.nodeList.menu_right = menu_right;
 
-        // Append created DOM obj.:
+        // // Append created DOM obj.:
 
-        this.nodeList.container.appendChild(menu_right);
+        // this.nodeList.container.appendChild(menu_right);
 
+        container.innerHTML += `
+        <div class="ar-interface__menu-container menu-container_left" isopened="false">
+            <div class="menu-container__element_root css-interface-leave">
+                <i class="fa fa-chevron-circle-left"></i>
+            </div>
+        </div>
+
+        <div class="ar-interface__menu-container menu-container_right" menutype="system" isopened="false" style="display: flex">
+            <div class="menu-container__element_root" f-interface="menutoggler">
+                <i ar-button__menu_main class="fa fa-bars" f-interface="menutoggler"></i>
+            </div>
+            <div class="menu-container__element" f-interface="fullscreentoggler">
+                <i ar-button__menu_main class="fa fa-expand" f-interface="fullscreentoggler"></i>
+            </div>
+        </div>
+        
+        <div class="ar-interface__menu-container menu-container_right" menutype="marker" isopened="false" style="display: none">
+            <div class="menu-container__element_root" f-interface="menutoggler">
+                <i ar-button__menu_main class="fa fa-cube" f-interface="menutoggler"></i>
+            </div>
+            <div class="menu-container__element_list" isopened="false" listid="1">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-cog" f-interface="menulisttoggler"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-search-plus"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-search-minus"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-undo"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-redo-alt"></i>
+                </div>
+            </div>
+            <div class="menu-container__element_list" isopened="false" listid="2">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-info-circle" f-interface="menulisttoggler"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-heading"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-user-circle"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-align-center"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ar-interface__menu-container menu-container_right" menutype="markers" isopened="false" style="display: none">
+            <div class="menu-container__element_root">
+                <i ar-button__menu_main class="fa fa-cubes"></i>
+            </div>
+            <div class="menu-container__element_list">
+                <div class="element-item_root">
+                    <i class="fa fa-cog"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-search-plus"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-search-minus"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-undo"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-redo-alt"></i>
+                </div>
+            </div>
+            <div class="menu-container__element_list">
+                <div class="element-item_root">
+                    <i class="fa fa-info-circle"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-heading"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-user-circle"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-align-center"></i>
+                </div>
+            </div>
+        </div>
+        `;
+
+        //Hide menu:
+        var hideArr = document.querySelectorAll("div.menu-container__element_root[f-interface=menutoggler]");
+        hideArr.forEach(e => {
+            this._menuToggler(e);
+            this._menuToggler(e);
+        });
+        //Hide lists of menu:
+        var hideList = document.querySelectorAll("div.element-item_root[f-interface=menulisttoggler]");
+        hideList.forEach(e => {
+            this._menuListToggler(e);
+            this._menuListToggler(e);
+        });
     }
 
     // Marker menu (val : str ("system" || "marker" || "markers" (unavailable)):
@@ -106,6 +209,16 @@ class Interface {
             default:
                 return;
         }
+    }
+
+    // Vibration:
+
+    vibrate(ms) {
+        if("vibrate" in navigator)  return navigator.vibrate(ms);
+        if("oVibrate" in navigator)  return navigator.oVibrate(ms);
+        if("mozVibrate" in navigator)  return navigator.mozVibrate(ms);
+        if("webkitVibrate" in navigator)  return navigator.webkitVibrate(ms);
+        return;
     }
 
     //Show title function:
@@ -167,6 +280,15 @@ class Interface {
                 case "leave":
                     history.go(-1);
                 break;
+                case "fullscreentoggler":
+                    this._fullScreenToggler();
+                break;
+                case "menutoggler":
+                    this._menuToggler(el);
+                break;
+                case "menulisttoggler":
+                    this._menuListToggler(el);
+                break;
             }
         }
 
@@ -190,38 +312,80 @@ class Interface {
 
         //System menu:
         _systemMenu() {
-            console.log(this.nodeList);
-            var bars_button = this.nodeList.bars_button;
+            // console.log(this.nodeList);
+            // var bars_button = this.nodeList.bars_button;
 
-            var bars_button_icon = bars_button.children;
-                if (bars_button.children.length != 1) return;
-                bars_button_icon = bars_button.children[0];
+            // var bars_button_icon = bars_button.children;
+            //     if (bars_button.children.length != 1) return;
+            //     bars_button_icon = bars_button.children[0];
 
-                bars_button_icon.setAttribute("class", "fa fa-bars");
-            
+            //     bars_button_icon.setAttribute("class", "fa fa-bars");
+
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "flex";
         }
 
         //Marker menu:
         _markerMenu() {
-            var bars_button = this.nodeList.bars_button;
+            // var bars_button = this.nodeList.bars_button;
             
-            var bars_button_icon = bars_button.children;
-                if (bars_button.children.length != 1) return;
-                bars_button_icon = bars_button.children[0];
+            // var bars_button_icon = bars_button.children;
+            //     if (bars_button.children.length != 1) return;
+            //     bars_button_icon = bars_button.children[0];
 
-                bars_button_icon.setAttribute("class", "fa fa-cube");
+            //     bars_button_icon.setAttribute("class", "fa fa-cube");
 
-            // Add vibration:
-            this._vibrate(65);
+
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "flex";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "none";
         }
 
-    // Vibration methods:
+    //Fullscreen toggle:
+    _fullScreenToggler() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen(); 
+          }
+        }
+      }
 
-    _vibrate(val){
-        if("vibrate" in navigator)  return navigator.vibrate(val);
-        if("oVibrate" in navigator)  return navigator.oVibrate(val);
-        if("mozVibrate" in navigator)  return navigator.mozVibrate(val);
-        if("webkitVibrate" in navigator)  return navigator.webkitVibrate(val);
-        return;
+    //Menu toggler (visible || invisible):
+    _menuToggler(el = document.createElement()) {
+        
+        var parentNode = el.parentNode;
+
+        if (parentNode.hasAttribute("isopened") == false) parentNode = parentNode.parentNode;
+        var childs = parentNode.querySelectorAll("div.menu-container__element, div.menu-container__element_list");
+
+        const attr = parentNode.getAttribute("isopened");
+        const display = attr == "true" ? "none" : "flex";
+        const isOpenedCondition = attr == "true" ? "false" : "true";
+
+        for (let i in childs) {
+            if (typeof childs[i] == "object") childs[i].style.display = display;
+        }
+        parentNode.setAttribute("isopened", isOpenedCondition);
+    }
+
+    //Menu list toggler (visible || invisible):
+    _menuListToggler(el = document.createElement()) {
+        
+        var parentNode = el.parentNode;
+        if (parentNode.hasAttribute("isopened") == false) parentNode = parentNode.parentNode;
+
+        var childs = parentNode.querySelectorAll(`div.element-item`);
+
+        const attr = parentNode.getAttribute("isopened");
+        const display = attr == "true" ? "none" : "flex";
+        const isOpenedCondition = attr == "true" ? "false" : "true";
+
+        for (let i in childs) {
+            if (typeof childs[i] == "object") childs[i].style.display = display;
+        }
+        parentNode.setAttribute("isopened", isOpenedCondition);
     }
 }

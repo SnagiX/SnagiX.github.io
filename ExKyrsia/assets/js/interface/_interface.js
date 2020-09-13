@@ -182,7 +182,7 @@ class Interface {
     </div>
 </div>
 
-<div class="ar-interface__menu-container menu-container_right" isopened="false">
+<div class="ar-interface__menu-container menu-container_right" type="system" isopened="false">
     <div class="menu-container__element_root">
         <i ar-button__menu_main class="fa fa-bars"></i>
     </div>
@@ -217,4 +217,80 @@ class Interface {
             <i class="fa fa-align-center"></i>
         </div>
     </div>
-</div> */}
+</div>
+
+<div class="ar-interface__menu-container menu-container_right" type="marker" isopened="false">
+    <div class="menu-container__element_root">
+        <i ar-button__menu_main class="fa fa-bars"></i>
+    </div>
+    <div class="menu-container__element_list">
+        <div class="element-item_root">
+            <i class="fa fa-cog"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-search-plus"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-search-minus"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-undo"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-redo-alt"></i>
+        </div>
+    </div>
+    <div class="menu-container__element_list">
+        <div class="element-item_root">
+            <i class="fa fa-info-circle"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-heading"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-user-circle"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-align-center"></i>
+        </div>
+    </div>
+</div>
+
+<div class="ar-interface__menu-container menu-container_right" type="markers" isopened="false">
+    <div class="menu-container__element_root">
+        <i ar-button__menu_main class="fa fa-bars"></i>
+    </div>
+    <div class="menu-container__element_list">
+        <div class="element-item_root">
+            <i class="fa fa-cog"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-search-plus"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-search-minus"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-undo"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-redo-alt"></i>
+        </div>
+    </div>
+    <div class="menu-container__element_list">
+        <div class="element-item_root">
+            <i class="fa fa-info-circle"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-heading"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-user-circle"></i>
+        </div>
+        <div class="element-item">
+            <i class="fa fa-align-center"></i>
+        </div>
+    </div>
+</div>
+
+*/}
