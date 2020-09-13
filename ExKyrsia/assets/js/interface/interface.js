@@ -248,15 +248,6 @@ class Interface {
 
         //System menu:
         _systemMenu() {
-            // console.log(this.nodeList);
-            // var bars_button = this.nodeList.bars_button;
-
-            // var bars_button_icon = bars_button.children;
-            //     if (bars_button.children.length != 1) return;
-            //     bars_button_icon = bars_button.children[0];
-
-            //     bars_button_icon.setAttribute("class", "fa fa-bars");
-
             document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
             document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "none";
             document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "flex";
@@ -264,15 +255,6 @@ class Interface {
 
         //Marker menu:
         _markerMenu() {
-            // var bars_button = this.nodeList.bars_button;
-            
-            // var bars_button_icon = bars_button.children;
-            //     if (bars_button.children.length != 1) return;
-            //     bars_button_icon = bars_button.children[0];
-
-            //     bars_button_icon.setAttribute("class", "fa fa-cube");
-
-
             document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
             document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "flex";
             document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "none";
