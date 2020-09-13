@@ -210,6 +210,18 @@ class Interface {
                 bars_button_icon = bars_button.children[0];
 
                 bars_button_icon.setAttribute("class", "fa fa-cube");
+
+            // Add vibration:
+            this._vibrate(65);
         }
 
+    // Vibration methods:
+
+    _vibrate(val){
+        if("vibrate" in navigator)  return navigator.vibrate(val);
+        if("oVibrate" in navigator)  return navigator.oVibrate(val);
+        if("mozVibrate" in navigator)  return navigator.mozVibrate(val);
+        if("webkitVibrate" in navigator)  return navigator.webkitVibrate(val);
+        return;
+    }
 }
