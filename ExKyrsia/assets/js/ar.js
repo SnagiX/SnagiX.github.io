@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         interval: 150,
         scale: 0.8,
     });
+    
 });
 
 ////////////
@@ -36,6 +37,7 @@ AFRAME.registerComponent("eventsmarker", {
                 // Modules:
 
                     // Interface:
+                    _interface.currentMarker(marker);
                     _interface.showTitle(marker);
                     _interface.vibrate(45);
                     _interface.markerMenu("marker");
@@ -46,6 +48,7 @@ AFRAME.registerComponent("eventsmarker", {
 
                     // Interface:
                     _interface.markerMenu("system");
+
             });
     }
 });

@@ -6,6 +6,9 @@ class Interface {
     // Exceptions container:
     exceptions = {}
 
+    // Marker container:
+    markers = []
+
     
     // MAIN CONSTRUCTOR
 
@@ -24,8 +27,8 @@ class Interface {
 
         container.innerHTML += `
         <div class="ar-interface__menu-container menu-container_left" isopened="false">
-            <div class="menu-container__element_root css-interface-leave">
-                <i class="fa fa-chevron-circle-left"></i>
+            <div class="menu-container__element_root css-interface-leave" f-interface="leave">
+                <i class="fa fa-chevron-circle-left" f-interface="leave"></i>
             </div>
         </div>
 
@@ -35,6 +38,9 @@ class Interface {
             </div>
             <div class="menu-container__element" f-interface="fullscreentoggler">
                 <i ar-button__menu_main class="fa fa-expand" f-interface="fullscreentoggler"></i>
+            </div>
+            <div class="menu-container__element" f-interface="reloadpage">
+                <i ar-button__menu_main class="fa fa-sync-alt" f-interface="reloadpage"></i>
             </div>
         </div>
         
@@ -63,8 +69,8 @@ class Interface {
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-info-circle" f-interface="menulisttoggler"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-heading"></i>
+                <div class="element-item" f-interface="showtitle">
+                    <i class="fa fa-heading" f-interface="showtitle"></i>
                 </div>
                 <div class="element-item">
                     <i class="fa fa-user-circle"></i>
@@ -113,17 +119,23 @@ class Interface {
         </div>
         `;
 
-        //Hide menu:
-        var hideArr = document.querySelectorAll("div.menu-container__element_root[f-interface=menutoggler]");
-        hideArr.forEach(e => {
-            this._menuToggler(e);
-            this._menuToggler(e);
-        });
-        //Hide lists of menu:
-        var hideList = document.querySelectorAll("div.element-item_root[f-interface=menulisttoggler]");
-        hideList.forEach(e => {
-            this._menuListToggler(e);
-            this._menuListToggler(e);
+        //Add to nodeList three containers:
+
+        this.nodeList.menu_system = document.querySelector("div.ar-interface__menu-container[menutype=system]");
+        this.nodeList.menu_marker = document.querySelector("div.ar-interface__menu-container[menutype=marker]");
+        this.nodeList.menu_markers = document.querySelector("div.ar-interface__menu-container[menutype=markers]");
+
+        // Hide menu and lists of menu:
+        const prepared = ["div.menu-container__element_root[f-interface=menutoggler]", "div.element-item_root[f-interface=menulisttoggler]"]
+        var type = "container";
+
+        prepared.forEach(e => {
+            const arr = document.querySelectorAll(e);
+            arr.forEach(e => {
+                this._menuToggler(type, e);
+                this._menuToggler(type, e);
+            });
+            type = "list";
         });
     }
 
@@ -147,6 +159,11 @@ class Interface {
         }
     }
 
+    currentMarker(marker) {
+        this.markers.unshift(marker);
+        return;
+    }
+
     // Vibration:
 
     vibrate(ms) {
@@ -160,32 +177,32 @@ class Interface {
     //Show title function:
 
     showTitle(marker) {
-        ScrollReveal().destroy();
-        if (typeof marker.title == null) return 0;
+        // ScrollReveal().destroy();
+        if (typeof marker.title == undefined) return 0;
         
         var token = this._generate_token(16);
 
         var textbox = document.createElement("div");
-            // textbox.style.visibility = false;
             textbox.style.opacity = 0;
             textbox.classList.add("ar-title");
             textbox.setAttribute("token", token);
 
-            var box = document.createElement("div");
-                box.classList.add("ar-title__box");
-                box.innerHTML += `<h2 class="ar-title__title"><span class="badge">${marker.title}</span></h2>`;
-
-                textbox.appendChild(box);
+            textbox.innerHTML += `
+                <div class="ar-title__box">
+                    <h2 class="ar-title__title"><span class="badge">${marker.title}</span></h2>
+                </div>
+            `;
             
             this.nodeList.body.appendChild(textbox);
 
+        textbox.style.opacity = 1;
+
         // Animating textBox:
 
-        ScrollReveal().reveal(`.ar-title[token="${token}"]`, {
-            delay: 1,
+        ScrollReveal().reveal(textbox, {
             scale: 0,
             distance: '100px',
-            duration: 500,
+            duration: 300,
             beforeReveal: () => {
                 textbox.style.opacity = 1;    
             },
@@ -216,14 +233,22 @@ class Interface {
                 case "leave":
                     history.go(-1);
                 break;
+                case "showtitle":
+                    this.markers.forEach(e => {
+                        this.showTitle(e);
+                    });
+                break;
                 case "fullscreentoggler":
                     this._fullScreenToggler();
                 break;
+                case "reloadpage":
+                    location.reload();
+                break;
                 case "menutoggler":
-                    this._menuToggler(el);
+                    this._menuToggler("container", el);
                 break;
                 case "menulisttoggler":
-                    this._menuListToggler(el);
+                    this._menuToggler("list", el);
                 break;
             }
         }
@@ -248,16 +273,23 @@ class Interface {
 
         //System menu:
         _systemMenu() {
-            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
-            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "none";
-            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "flex";
+            this.nodeList.menu_markers.style.display = "none";
+            this.nodeList.menu_marker.style.display =  "none";
+            this.nodeList.menu_system.style.display =  "flex";
         }
 
         //Marker menu:
         _markerMenu() {
-            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
-            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "flex";
-            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "none";
+            this.nodeList.menu_markers.style.display = "none";
+            this.nodeList.menu_marker.style.display =  "flex";
+            this.nodeList.menu_system.style.display =  "none";
+        }
+
+        //Markers menu:
+        _markersMenu() {
+            this.nodeList.menu_markers.style.display = "flex";
+            this.nodeList.menu_markers.style.display =  "none";
+            this.nodeList.menu_system.style.display =  "none";
         }
 
     //Fullscreen toggle:
@@ -271,39 +303,40 @@ class Interface {
         }
       }
 
-    //Menu toggler (visible || invisible):
-    _menuToggler(el = document.createElement()) {
-        
-        var parentNode = el.parentNode;
-
-        if (parentNode.hasAttribute("isopened") == false) parentNode = parentNode.parentNode;
-        var childs = parentNode.querySelectorAll("div.menu-container__element, div.menu-container__element_list");
-
-        const attr = parentNode.getAttribute("isopened");
-        const display = attr == "true" ? "none" : "flex";
-        const isOpenedCondition = attr == "true" ? "false" : "true";
-
-        for (let i in childs) {
-            if (typeof childs[i] == "object") childs[i].style.display = display;
-        }
-        parentNode.setAttribute("isopened", isOpenedCondition);
-    }
-
-    //Menu list toggler (visible || invisible):
-    _menuListToggler(el = document.createElement()) {
-        
+    // MenuToggler:
+    //
+    // Menu Toggler's method:
+    // Attributes:
+    // type : str ("container" || "list")
+    // el : obj (DOM element)
+    _menuToggler(type = "container", el = document.createElement()) {
         var parentNode = el.parentNode;
         if (parentNode.hasAttribute("isopened") == false) parentNode = parentNode.parentNode;
 
-        var childs = parentNode.querySelectorAll(`div.element-item`);
+        const prepared = type == "list" ? "div.element-item" : "div.menu-container__element, div.menu-container__element_list";
 
+        var childs = parentNode.querySelectorAll(prepared);
+        
         const attr = parentNode.getAttribute("isopened");
         const display = attr == "true" ? "none" : "flex";
+        const time = 200;
+        const opacity = attr == "true" ? 1 : 0;
+
         const isOpenedCondition = attr == "true" ? "false" : "true";
 
-        for (let i in childs) {
-            if (typeof childs[i] == "object") childs[i].style.display = display;
-        }
+        childs.forEach(e => {
+            e.style.opacity = opacity;
+            if (display == "flex") e.style.display = display;
+
+            e.animate([
+                {opacity: opacity},
+                {opacity: (opacity == 0 ? 1 : 0)}
+            ], time);
+            setTimeout(() => {
+                e.style.opacity = (opacity == 0 ? 1 : 0);
+                if (display == "none") e.style.display = display;
+            }, time);
+        });
         parentNode.setAttribute("isopened", isOpenedCondition);
     }
 }

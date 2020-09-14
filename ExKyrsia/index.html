@@ -27,7 +27,6 @@
             <script src="https://unpkg.com/scrollreveal"></script>
 
             <!-- MODULES -->
-
             <script src="assets/js/interface/button.interface.js"></script>
 
             <script src="assets/js/interface/interface.js"></script>
@@ -41,11 +40,6 @@
             overflow: hidden;
         "
     >
-        <!-- <div class="ar-title">
-            <div class="ar-title__box">
-                <h2 class="ar-title__title">Title</h2>
-            </div>
-        </div> -->
         <div class="ar-interface">
             
         </div>
@@ -67,14 +61,14 @@
             embedded
         >   
             <a-entity camera></a-entity>
-            <a-marker smooth="true" title="Маркер - VR headset demo" type='pattern' url="assets/referenses/markers/1_pattern-marker.patt" eventsmarker>
+            <a-marker title="Маркер - VR headset demo" type='pattern' url="assets/referenses/markers/1_pattern-marker.patt" eventsmarker>
 
                 <!-- Layers of ar object: -->
                 <!-- FRIST: editing (scale, position, rotation, etc.) -->
                 <a-entity class="ar-obj_edit"
                     scale="0.5 0.5 0.5"
                     rotation="-90 0 0"
-                    position="0 -0.5 0"
+                    position="0 -0.75 0"
                 >
                     <!-- Then goes animation layer (scaleUp & Down, rotation, etc.) -->
                     <a-entity class="ar-obj_animation"

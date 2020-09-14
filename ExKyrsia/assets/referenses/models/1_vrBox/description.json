@@ -4,8 +4,8 @@
     "description": "Первая демо - модель нашего проекта",
     "published": "11.09.2020 13:57:00",
     "config": {
-        "smooth": true,
-        "show_smoothly": true,
+        "smooth": false,
+        "fadeIn": true,
         "patt_url": "assets/referenses/markers/1_pattern-marker.patt",
         "model_url": "assets/referenses/models/1_vrBox/1_vrBox.gltf",
         "scale": "0.5 0.5 0.5",
