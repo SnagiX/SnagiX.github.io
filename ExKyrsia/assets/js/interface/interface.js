@@ -195,8 +195,6 @@ class Interface {
             
             this.nodeList.body.appendChild(textbox);
 
-        textbox.style.opacity = 1;
-
         // Animating textBox:
 
         ScrollReveal().reveal(textbox, {
