@@ -177,7 +177,7 @@ class Interface {
     //Show title function:
 
     showTitle(marker) {
-        // ScrollReveal().destroy();
+        ScrollReveal().destroy();
         if (typeof marker.title == undefined) return 0;
         
         var token = this._generate_token(16);
@@ -201,7 +201,6 @@ class Interface {
             scale: 0,
             distance: '100px',
             duration: 300,
-            reset: false,
             beforeReveal: () => {
                 textbox.style.opacity = 1;    
             },
