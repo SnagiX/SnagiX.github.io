@@ -201,6 +201,7 @@ class Interface {
             scale: 0,
             distance: '100px',
             duration: 300,
+            reset: false,
             beforeReveal: () => {
                 textbox.style.opacity = 1;    
             },
