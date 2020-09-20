@@ -32,22 +32,22 @@ AFRAME.registerComponent("eventsmarker", {
         // Events:
 
             marker.addEventListener('markerFound', function () {
-                // console.log(marker);
                 
                 // Modules:
 
                     // Interface:
-                    _interface.currentMarker(marker);
+                    _interface.currentMarker(marker, "add");
                     _interface.showTitle(marker);
                     _interface.vibrate(45);
-                    _interface.markerMenu("marker");
+                    _interface.markers.length > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
             });
 
             marker.addEventListener('markerLost', function () {
                 // Modules:
 
                     // Interface:
-                    _interface.markerMenu("system");
+                    _interface.currentMarker(marker, "remove");
+                    _interface.markers == 0 ? _interface.markerMenu("system") : _interface.markerMenu("marker")
 
             });
     }

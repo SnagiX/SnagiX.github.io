@@ -26,9 +26,6 @@
             <!-- ANIMATIONS -->
             <script src="https://unpkg.com/scrollreveal"></script>
 
-            <!-- MODULES -->
-            <script src="assets/js/interface/button.interface.js"></script>
-
             <script src="assets/js/interface/interface.js"></script>
         
         <script src="assets/js/ar.js"></script>
@@ -59,9 +56,9 @@
             '
             inspector="url: xxx" 
             embedded
-        >   
+        >
             <a-entity camera></a-entity>
-            <a-marker title="Маркер - VR headset demo" type='pattern' url="assets/referenses/markers/1_pattern-marker.patt" eventsmarker>
+            <a-marker title="Маркер - VR headset demo" type='pattern' url="assets/referenses/markers/1.patt" eventsmarker>
 
                 <!-- Layers of ar object: -->
                 <!-- FRIST: editing (scale, position, rotation, etc.) -->
@@ -76,11 +73,35 @@
                     >
 
                         <!-- Finally goes model -->
-                        <a-entity gltf-model="assets/referenses/models/1_vrBox/1_vrBox.gltf">
+                        <a-entity gltf-model="assets/referenses/models/1/1.gltf">
 
                             <!-- Light could be here, but I'll remove it in product-version -->
                             <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
                             <a-light type="point" intensity="1" position="0 0 -1.2"></a-light>
+    
+                        </a-entity>
+                    </a-entity>
+                </a-entity>
+            </a-marker>
+            <a-marker title="Маркер - какой-то лес" type='pattern' url="assets/referenses/markers/2.patt" eventsmarker>
+
+                <!-- Layers of ar object: -->
+                <!-- FRIST: editing (scale, position, rotation, etc.) -->
+                <a-entity class="ar-obj_edit"
+                    scale="0.5 0.5 0.5"
+                    rotation="0 0 0"
+                    position="0 0 0"
+                >
+                    <!-- Then goes animation layer (scaleUp & Down, rotation, etc.) -->
+                    <a-entity class="ar-obj_animation"
+                    
+                    >
+
+                        <!-- Finally goes model -->
+                        <a-entity gltf-model="assets/referenses/models/2/2.gltf">
+
+                            <!-- Light could be here, but I'll remove it in product-version -->
+                            <a-light type="ambient" intensity="1" position="0 0 0"></a-light>
     
                         </a-entity>
                     </a-entity>

@@ -1,13 +1,13 @@
 class Interface {
 
     // Container with DOM tags (Nodes):
-    nodeList = {}
+    nodeList = {};
 
     // Exceptions container:
-    exceptions = {}
+    exceptions = {};
 
     // Marker container:
-    markers = []
+    markers = [];
 
     
     // MAIN CONSTRUCTOR
@@ -15,7 +15,6 @@ class Interface {
     constructor(container = "") {
         //Some code here (in future)
         this.nodeList.container = container;
-
     }
 
     //Init interface with system functionality:
@@ -82,12 +81,12 @@ class Interface {
         </div>
         
         <div class="ar-interface__menu-container menu-container_right" menutype="markers" isopened="false" style="display: none">
-            <div class="menu-container__element_root">
-                <i ar-button__menu_main class="fa fa-cubes"></i>
+            <div class="menu-container__element_root" f-interface="menutoggler">
+                <i ar-button__menu_main class="fa fa-cubes" f-interface="menutoggler"></i>
             </div>
-            <div class="menu-container__element_list">
-                <div class="element-item_root">
-                    <i class="fa fa-cog"></i>
+            <div class="menu-container__element_list" isopened="false" listid="1">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-cog" f-interface="menulisttoggler"></i>
                 </div>
                 <div class="element-item">
                     <i class="fa fa-search-plus"></i>
@@ -100,20 +99,6 @@ class Interface {
                 </div>
                 <div class="element-item">
                     <i class="fa fa-redo-alt"></i>
-                </div>
-            </div>
-            <div class="menu-container__element_list">
-                <div class="element-item_root">
-                    <i class="fa fa-info-circle"></i>
-                </div>
-                <div class="element-item">
-                    <i class="fa fa-heading"></i>
-                </div>
-                <div class="element-item">
-                    <i class="fa fa-user-circle"></i>
-                </div>
-                <div class="element-item">
-                    <i class="fa fa-align-center"></i>
                 </div>
             </div>
         </div>
@@ -139,7 +124,7 @@ class Interface {
         });
     }
 
-    // Marker menu (val : str ("system" || "marker" || "markers" (unavailable)):
+    // Marker menu (val : str ("system" || "marker" || "markers"):
     
     markerMenu(val) {
         switch (val) {
@@ -152,15 +137,23 @@ class Interface {
                 break;
         
             case "markers":
-
+                this._markersMenu();
                 break;
+
             default:
                 return;
         }
     }
 
-    currentMarker(marker) {
-        this.markers.unshift(marker);
+    // Current marker:
+    // Flags:
+    //
+    // add (as default)    add marker into array
+    // remove              remove marker from array
+
+    currentMarker(marker, flag = "add") {
+        flag == "add" ? this.markers.unshift(marker) : this.markers.splice(marker, 1);
+        console.log(this.markers);
         return;
     }
 
@@ -177,13 +170,11 @@ class Interface {
     //Show title function:
 
     showTitle(marker) {
-        // ScrollReveal().destroy();
         if (typeof marker.title == undefined) return 0;
         
         var token = this._generate_token(16);
 
         var textbox = document.createElement("div");
-            textbox.style.opacity = 0;
             textbox.classList.add("ar-title");
             textbox.setAttribute("token", token);
 
@@ -195,29 +186,19 @@ class Interface {
             
             this.nodeList.body.appendChild(textbox);
 
+        // ANIMATION
+
+        textbox.animate([{opacity: 0}, {opacity: 1}], 350);
         textbox.style.opacity = 1;
-
-        // Animating textBox:
-
-        ScrollReveal().reveal(textbox, {
-            scale: 0,
-            distance: '100px',
-            duration: 300,
-            beforeReveal: () => {
-                textbox.style.opacity = 1;    
-            },
-            afterReveal: () => {
-                setTimeout(() => {
-                    textbox.animate([
-                        {opacity: 1},
-                        {opacity: 0}
-                    ], 350);
-                    setTimeout(() => {
-                        textbox.remove();
-                    }, 350);
-                }, 1500);
-            },
-        });
+        setTimeout(() => {
+            textbox.animate([
+                {opacity: 1},
+                {opacity: 0}
+            ], 350);
+            setTimeout(() => {
+                textbox.remove();
+            }, 350);
+        }, 1500);
     }
 
     // EVENTS:
@@ -287,8 +268,9 @@ class Interface {
 
         //Markers menu:
         _markersMenu() {
+            console.log(123);
             this.nodeList.menu_markers.style.display = "flex";
-            this.nodeList.menu_markers.style.display =  "none";
+            this.nodeList.menu_marker.style.display =  "none";
             this.nodeList.menu_system.style.display =  "none";
         }
 
