@@ -39,7 +39,7 @@ AFRAME.registerComponent("eventsmarker", {
                     _interface.currentMarker(marker, "add");
                     _interface.showTitle(marker);
                     _interface.vibrate(45);
-                    _interface.markers > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
+                    _interface.markers.length > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
             });
 
             marker.addEventListener('markerLost', function () {
@@ -47,7 +47,7 @@ AFRAME.registerComponent("eventsmarker", {
 
                     // Interface:
                     _interface.currentMarker(marker, "remove");
-                    _interface.markerMenu("system");
+                    _interface.markers == 0 ? _interface.markerMenu("system") : _interface.markerMenu("marker")
 
             });
     }

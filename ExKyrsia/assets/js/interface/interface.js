@@ -101,20 +101,6 @@ class Interface {
                     <i class="fa fa-redo-alt"></i>
                 </div>
             </div>
-            <div class="menu-container__element_list" isopened="false" listid="2">
-                <div class="element-item_root" f-interface="menulisttoggler">
-                    <i class="fa fa-info-circle" f-interface="menulisttoggler"></i>
-                </div>
-                <div class="element-item" f-interface="showtitle">
-                    <i class="fa fa-heading" f-interface="showtitle"></i>
-                </div>
-                <div class="element-item">
-                    <i class="fa fa-user-circle"></i>
-                </div>
-                <div class="element-item">
-                    <i class="fa fa-align-center"></i>
-                </div>
-            </div>
         </div>
         `;
 
@@ -138,7 +124,7 @@ class Interface {
         });
     }
 
-    // Marker menu (val : str ("system" || "marker" || "markers" (unavailable)):
+    // Marker menu (val : str ("system" || "marker" || "markers"):
     
     markerMenu(val) {
         switch (val) {
@@ -153,6 +139,7 @@ class Interface {
             case "markers":
                 this._markersMenu();
                 break;
+
             default:
                 return;
         }
@@ -281,8 +268,9 @@ class Interface {
 
         //Markers menu:
         _markersMenu() {
+            console.log(123);
             this.nodeList.menu_markers.style.display = "flex";
-            this.nodeList.menu_markers.style.display =  "none";
+            this.nodeList.menu_marker.style.display =  "none";
             this.nodeList.menu_system.style.display =  "none";
         }
 
