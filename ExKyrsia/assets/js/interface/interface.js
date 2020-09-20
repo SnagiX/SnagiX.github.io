@@ -268,13 +268,12 @@ class Interface {
 
         //Markers menu:
         _markersMenu() {
-            console.log(123);
             this.nodeList.menu_markers.style.display = "flex";
             this.nodeList.menu_marker.style.display =  "none";
             this.nodeList.menu_system.style.display =  "none";
         }
 
-    //Fullscreen toggle:
+    //Fullscreen toggler:
     _fullScreenToggler() {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen();
