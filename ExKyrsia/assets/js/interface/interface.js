@@ -1,13 +1,13 @@
 class Interface {
 
     // Container with DOM tags (Nodes):
-    nodeList = {}
+    nodeList = {};
 
     // Exceptions container:
-    exceptions = {}
+    exceptions = {};
 
     // Marker container:
-    markers = []
+    markers = [];
 
     
     // MAIN CONSTRUCTOR
@@ -177,13 +177,11 @@ class Interface {
     //Show title function:
 
     showTitle(marker) {
-        // ScrollReveal().destroy();
         if (typeof marker.title == undefined) return 0;
         
         var token = this._generate_token(16);
 
         var textbox = document.createElement("div");
-            textbox.style.opacity = 0;
             textbox.classList.add("ar-title");
             textbox.setAttribute("token", token);
 
@@ -195,29 +193,19 @@ class Interface {
             
             this.nodeList.body.appendChild(textbox);
 
+        // ANIMATION
+
+        textbox.animate([{opacity: 0}, {opacity: 1}], 350);
         textbox.style.opacity = 1;
-
-        // Animating textBox:
-
-        ScrollReveal().reveal(textbox, {
-            scale: 0,
-            distance: '100px',
-            duration: 300,
-            beforeReveal: () => {
-                textbox.style.opacity = 1;    
-            },
-            afterReveal: () => {
-                setTimeout(() => {
-                    textbox.animate([
-                        {opacity: 1},
-                        {opacity: 0}
-                    ], 350);
-                    setTimeout(() => {
-                        textbox.remove();
-                    }, 350);
-                }, 1500);
-            },
-        });
+        setTimeout(() => {
+            textbox.animate([
+                {opacity: 1},
+                {opacity: 0}
+            ], 350);
+            setTimeout(() => {
+                textbox.remove();
+            }, 350);
+        }, 1500);
     }
 
     // EVENTS:
