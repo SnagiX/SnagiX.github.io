@@ -15,7 +15,6 @@ class Interface {
     constructor(container = "") {
         //Some code here (in future)
         this.nodeList.container = container;
-
     }
 
     //Init interface with system functionality:
@@ -82,12 +81,12 @@ class Interface {
         </div>
         
         <div class="ar-interface__menu-container menu-container_right" menutype="markers" isopened="false" style="display: none">
-            <div class="menu-container__element_root">
-                <i ar-button__menu_main class="fa fa-cubes"></i>
+            <div class="menu-container__element_root" f-interface="menutoggler">
+                <i ar-button__menu_main class="fa fa-cubes" f-interface="menutoggler"></i>
             </div>
-            <div class="menu-container__element_list">
-                <div class="element-item_root">
-                    <i class="fa fa-cog"></i>
+            <div class="menu-container__element_list" isopened="false" listid="1">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-cog" f-interface="menulisttoggler"></i>
                 </div>
                 <div class="element-item">
                     <i class="fa fa-search-plus"></i>
@@ -102,12 +101,12 @@ class Interface {
                     <i class="fa fa-redo-alt"></i>
                 </div>
             </div>
-            <div class="menu-container__element_list">
-                <div class="element-item_root">
-                    <i class="fa fa-info-circle"></i>
+            <div class="menu-container__element_list" isopened="false" listid="2">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-info-circle" f-interface="menulisttoggler"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-heading"></i>
+                <div class="element-item" f-interface="showtitle">
+                    <i class="fa fa-heading" f-interface="showtitle"></i>
                 </div>
                 <div class="element-item">
                     <i class="fa fa-user-circle"></i>
@@ -152,15 +151,22 @@ class Interface {
                 break;
         
             case "markers":
-
+                this._markersMenu();
                 break;
             default:
                 return;
         }
     }
 
-    currentMarker(marker) {
-        this.markers.unshift(marker);
+    // Current marker:
+    // Flags:
+    //
+    // add (as default)    add marker into array
+    // remove              remove marker from array
+
+    currentMarker(marker, flag = "add") {
+        flag == "add" ? this.markers.unshift(marker) : this.markers.splice(marker, 1);
+        console.log(this.markers);
         return;
     }
 

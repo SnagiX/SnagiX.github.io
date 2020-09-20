@@ -36,16 +36,17 @@ AFRAME.registerComponent("eventsmarker", {
                 // Modules:
 
                     // Interface:
-                    _interface.currentMarker(marker);
+                    _interface.currentMarker(marker, "add");
                     _interface.showTitle(marker);
                     _interface.vibrate(45);
-                    _interface.markerMenu("marker");
+                    _interface.markers > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
             });
 
             marker.addEventListener('markerLost', function () {
                 // Modules:
 
                     // Interface:
+                    _interface.currentMarker(marker, "remove");
                     _interface.markerMenu("system");
 
             });
