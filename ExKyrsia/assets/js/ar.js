@@ -32,7 +32,6 @@ AFRAME.registerComponent("eventsmarker", {
         // Events:
 
             marker.addEventListener('markerFound', function () {
-                // console.log(marker);
                 
                 // Modules:
 
