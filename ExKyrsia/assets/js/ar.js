@@ -31,8 +31,8 @@ AFRAME.registerComponent("eventsmarker", {
 
         // Events:
 
-            marker.addEventListener('markerFound', function () {
-                
+            marker.addEventListener('markerFound', (e) => {
+
                 // Modules:
 
                     // Interface:
@@ -42,7 +42,7 @@ AFRAME.registerComponent("eventsmarker", {
                     _interface.markers.length > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
             });
 
-            marker.addEventListener('markerLost', function () {
+            marker.addEventListener('markerLost', (e) => {
                 // Modules:
 
                     // Interface:
@@ -61,4 +61,6 @@ document.addEventListener("click", (e) => {
     // Interface functions:
 
     _interface.btnClickEvent(el);
-})
+});
+
+// 
