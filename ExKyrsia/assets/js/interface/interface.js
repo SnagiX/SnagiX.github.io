@@ -12,6 +12,8 @@ class Interface {
         this.exceptions = {};
         // Markers
         this.markers = [];
+        // Classes of markers:
+        this.markers_classes = [];
         
         // body tag init
         this.nodeList.container = container;
@@ -51,11 +53,11 @@ class Interface {
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-cog" f-interface="menulisttoggler"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-search-plus"></i>
+                <div class="element-item" f-interface="zoomin">
+                    <i class="fa fa-search-plus" f-interface="zoomin"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-search-minus"></i>
+                <div class="element-item" f-interface="zoomout">
+                    <i class="fa fa-search-minus" f-interface="zoomout"></i>
                 </div>
                 <div class="element-item">
                     <i class="fa fa-undo"></i>
@@ -153,7 +155,6 @@ class Interface {
 
     currentMarker(marker, flag = "add") {
         flag == "add" ? this.markers.unshift(marker) : this.markers.splice(marker, 1);
-        console.log(this.markers);
         return;
     }
 
@@ -230,6 +231,12 @@ class Interface {
                 break;
                 case "menulisttoggler":
                     this._menuToggler("list", el);
+                break;
+                case "zoomin":
+
+                break;
+                case "zoomout":
+                    
                 break;
             }
         }
