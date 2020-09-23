@@ -1,19 +1,19 @@
 class Interface {
 
-    // Container with DOM tags (Nodes):
-    nodeList = {};
-
-    // Exceptions container:
-    exceptions = {};
-
-    // Marker container:
-    markers = [];
-
-    
     // MAIN CONSTRUCTOR
 
     constructor(container = "") {
-        //Some code here (in future)
+
+        // Containers:
+
+        // Node list
+        this.nodeList = {};
+        // Exceptions
+        this.exceptions = {};
+        // Markers
+        this.markers = [];
+        
+        // body tag init
         this.nodeList.container = container;
     }
 
