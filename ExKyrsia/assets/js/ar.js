@@ -27,12 +27,19 @@ AFRAME.registerComponent("eventsmarker", {
     init: function () {
 
         var marker = this.el;
+
+        // Modules:
+
+            // markerObj:
+
+            var _markerObj = new MarkerObj(marker, false);
+
         marker.setAttribute('emitevents', 'true');
 
         // Events:
 
-            marker.addEventListener('markerFound', function () {
-                
+            marker.addEventListener('markerFound', e => {
+
                 // Modules:
 
                     // Interface:
@@ -40,9 +47,10 @@ AFRAME.registerComponent("eventsmarker", {
                     _interface.showTitle(marker);
                     _interface.vibrate(45);
                     _interface.markers.length > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
+                    
             });
 
-            marker.addEventListener('markerLost', function () {
+            marker.addEventListener('markerLost', e => {
                 // Modules:
 
                     // Interface:
@@ -55,10 +63,11 @@ AFRAME.registerComponent("eventsmarker", {
 
 // CLICK
 
-document.addEventListener("click", (e) => {
+document.addEventListener("click", e => {
     let el = e.target;
 
     // Interface functions:
 
     _interface.btnClickEvent(el);
-})
+
+});

@@ -1,19 +1,19 @@
 class Interface {
 
-    // Container with DOM tags (Nodes):
-    nodeList = {};
-
-    // Exceptions container:
-    exceptions = {};
-
-    // Marker container:
-    markers = [];
-
-    
     // MAIN CONSTRUCTOR
 
     constructor(container = "") {
-        //Some code here (in future)
+
+        // Containers:
+
+        // Node list
+        this.nodeList = {};
+        // Exceptions
+        this.exceptions = {};
+        // Markers
+        this.markers = [];
+        
+        // body tag init
         this.nodeList.container = container;
     }
 
@@ -51,11 +51,11 @@ class Interface {
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-cog" f-interface="menulisttoggler"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-search-plus"></i>
+                <div class="element-item" f-interface="zoomin">
+                    <i class="fa fa-search-plus" f-interface="zoomin"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-search-minus"></i>
+                <div class="element-item" f-interface="zoomout">
+                    <i class="fa fa-search-minus" f-interface="zoomout"></i>
                 </div>
                 <div class="element-item">
                     <i class="fa fa-undo"></i>
@@ -153,7 +153,6 @@ class Interface {
 
     currentMarker(marker, flag = "add") {
         flag == "add" ? this.markers.unshift(marker) : this.markers.splice(marker, 1);
-        console.log(this.markers);
         return;
     }
 
@@ -223,13 +222,21 @@ class Interface {
                     this._fullScreenToggler();
                 break;
                 case "reloadpage":
-                    location.reload();
+                    window.location.href = window.location.pathname + window.location.search + window.location.hash;
                 break;
                 case "menutoggler":
                     this._menuToggler("container", el);
                 break;
                 case "menulisttoggler":
                     this._menuToggler("list", el);
+                break;
+                case "zoomin":
+                    var markerObjk = new MarkerObj(this.markers[0], false);
+                    markerObjk.zoom(1);
+                break;
+                case "zoomout":
+                    var markerObjk = new MarkerObj(this.markers[0], false);
+                    markerObjk.zoom(0);
                 break;
             }
         }
