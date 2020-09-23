@@ -32,7 +32,7 @@ AFRAME.registerComponent("eventsmarker", {
 
             // markerObj:
 
-            var _markerObj = new MarkerObj(marker, true);
+            var _markerObj = new MarkerObj(marker, false);
 
         marker.setAttribute('emitevents', 'true');
 
@@ -47,9 +47,7 @@ AFRAME.registerComponent("eventsmarker", {
                     _interface.showTitle(marker);
                     _interface.vibrate(45);
                     _interface.markers.length > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
-
-                    // markerObj:
-                    _markerObj.zoom(1);
+                    
             });
 
             marker.addEventListener('markerLost', e => {

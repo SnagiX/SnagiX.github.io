@@ -12,8 +12,6 @@ class Interface {
         this.exceptions = {};
         // Markers
         this.markers = [];
-        // Classes of markers:
-        this.markers_classes = [];
         
         // body tag init
         this.nodeList.container = container;
@@ -224,7 +222,7 @@ class Interface {
                     this._fullScreenToggler();
                 break;
                 case "reloadpage":
-                    location.reload();
+                    window.location.href = window.location.pathname + window.location.search + window.location.hash;
                 break;
                 case "menutoggler":
                     this._menuToggler("container", el);
@@ -233,10 +231,12 @@ class Interface {
                     this._menuToggler("list", el);
                 break;
                 case "zoomin":
-
+                    var markerObjk = new MarkerObj(this.markers[0], false);
+                    markerObjk.zoom(1);
                 break;
                 case "zoomout":
-                    
+                    var markerObjk = new MarkerObj(this.markers[0], false);
+                    markerObjk.zoom(0);
                 break;
             }
         }

@@ -32,11 +32,12 @@ class MarkerObj {
 
         // Zoom:
         // 
-        // Flags:
+        // Attributes:
         //
-        //  type : bool      1 - zoom in; 0 - zoom out
+        //  type : bool             1 - zoom in; 0 - zoom out
         //  scale : dict (x, y, z)
-        zoom(type = 1, scale = {x: 0.4, y: 0.4, z: 0.4}) {
+        //  max : int               max scale of object(s)
+        zoom(type = 1, scale = {x: 0.2, y: 0.2, z: 0.2}, max = 1) {
 
             // Debug:
             this._debugShow(`| ZOOM | trigger was activated (${this.marker.title})`);
@@ -59,6 +60,14 @@ class MarkerObj {
             scale.x += prepared.x;
             scale.y += prepared.y;
             scale.z += prepared.z;
+
+            Math.sign(scale.x) == -1 ? scale.x = prepared.x : false;
+            Math.sign(scale.y) == -1 ? scale.y = prepared.y : false;
+            Math.sign(scale.z) == -1 ? scale.z = prepared.z : false;
+
+            max <= scale.x ? scale.x = prepared.x : false;
+            max <= scale.y ? scale.y = prepared.y : false;
+            max <= scale.z ? scale.z = prepared.z : false;
 
             this.childNodes[0].setAttribute("scale", scale);
             this._debugShow(`| ZOOM | Done!`);
