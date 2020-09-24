@@ -246,7 +246,7 @@ class Interface {
                 // mtype : bool      1 - in, 0 - out
                 function zoom(markers, mtype = 0) {
                     markers.forEach(e => {
-                        var markerObj = new MarkerObj(e, true);
+                        var markerObj = new MarkerObj(e, false);
                         markerObj.zoom({type: mtype});
                     });
                 }
