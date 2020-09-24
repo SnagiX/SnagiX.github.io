@@ -88,11 +88,11 @@ class Interface {
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-cog" f-interface="menulisttoggler"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-search-plus"></i>
+                <div class="element-item" f-interface="zoomin">
+                    <i class="fa fa-search-plus" f-interface="zoomin"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-search-minus"></i>
+                <div class="element-item" f-interface="zoomout">
+                    <i class="fa fa-search-minus" f-interface="zoomout"></i>
                 </div>
                 <div class="element-item">
                     <i class="fa fa-undo"></i>
@@ -231,14 +231,25 @@ class Interface {
                     this._menuToggler("list", el);
                 break;
                 case "zoomin":
-                    var markerObjk = new MarkerObj(this.markers[0], false);
-                    markerObjk.zoom(1);
+                    zoom(this.markers, 1);
                 break;
                 case "zoomout":
-                    var markerObjk = new MarkerObj(this.markers[0], false);
-                    markerObjk.zoom(0);
+                    zoom(this.markers, 0);
                 break;
             }
+
+            // Close functions to compare equal code:
+
+                // Zoom (in & out)
+                //
+                // markers : array [obj]
+                // mtype : bool      1 - in, 0 - out
+                function zoom(markers, mtype = 0) {
+                    markers.forEach(e => {
+                        var markerObj = new MarkerObj(e, false);
+                        markerObj.zoom({type: mtype});
+                    });
+                }
         }
 
 

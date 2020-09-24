@@ -37,7 +37,21 @@ class MarkerObj {
         //  type : bool             1 - zoom in; 0 - zoom out
         //  scale : dict (x, y, z)
         //  max : int               max scale of object(s)
-        zoom(type = 1, scale = {x: 0.2, y: 0.2, z: 0.2}, max = 1) {
+        // 
+        // zoom(type = 1, scale = {x: 0.2, y: 0.2, z: 0.2}, max = 1) {
+        zoom ({
+            type = 1,
+            scale = {
+                x: 0.2, 
+                y: 0.2, 
+                z: 0.2
+            },
+            max = {
+                x: 1,
+                y: 1,
+                z: 1
+            }
+        }) {
 
             // Debug:
             this._debugShow(`| ZOOM | trigger was activated (${this.marker.title})`);
@@ -65,9 +79,11 @@ class MarkerObj {
             Math.sign(scale.y) == -1 ? scale.y = prepared.y : false;
             Math.sign(scale.z) == -1 ? scale.z = prepared.z : false;
 
-            max <= scale.x ? scale.x = prepared.x : false;
-            max <= scale.y ? scale.y = prepared.y : false;
-            max <= scale.z ? scale.z = prepared.z : false;
+            // Check for maximum size of marker:
+
+            max.x <= scale.x ? scale.x = prepared.x : false;
+            max.y <= scale.y ? scale.y = prepared.y : false;
+            max.z <= scale.z ? scale.z = prepared.z : false;
 
             this.childNodes[0].setAttribute("scale", scale);
             this._debugShow(`| ZOOM | Done!`);
@@ -79,7 +95,16 @@ class MarkerObj {
 
         _debugShow(el) {
             if (this.debugState == false) return 0;
-            console.log(el);
+
+            var currentdate = new Date(); 
+            var datetime = currentdate.getDate() + "/"
+                            + (currentdate.getMonth()+1)  + "/" 
+                            + currentdate.getFullYear() + " @ "  
+                            + currentdate.getHours() + ":"  
+                            + currentdate.getMinutes() + ":" 
+                            + currentdate.getSeconds();
+
+            console.log("| MARKEROBJ ", `${datetime} |`, el);
             return 1;
         }
 }
