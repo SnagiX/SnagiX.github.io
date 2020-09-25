@@ -1,230 +1,358 @@
 class Interface {
 
-    fa_icons = {
-        tag: "i",
-        class_root: "fa",
-        class: {
-            leave: "fa-chevron-circle-left",
-            menu: "fa-bars",
-            
-        }
-    }
+    // MAIN CONSTRUCTOR
 
-    constructor(container) {
-        this.container = container;
-        this.ScrollReveal = ScrollReveal();
-        this.body = document.querySelectorAll("body")[0];
-        // Exceptions container:
+    constructor(container = "") {
+
+        // Containers:
+
+        // Node list
+        this.nodeList = {};
+        // Exceptions
         this.exceptions = {};
+        // Markers
+        this.markers = [];
+        
+        // body tag init
+        this.nodeList.container = container;
     }
 
-    // Exceptions:
+    //Init interface with system functionality:
+    init(container) {
 
-    interfaceException(flag, message) {
-        switch (flag) {
-            case "INIT_INTERFACE":
-                this.exceptions.INIT_INTERFACE = 1;
-            break;
-            case "MENU_SYSTEM":
-                this.exceptions.MENU_SYSTEM = 1;
-            break;
-            default:
-                this.exceptions.GENERAL = 1;
-            break;
-        }
-        console.error("Interface exception -", message);
+        this.nodeList.body = document.getElementsByTagName("body")[0];
+
+        this.nodeList.container = container;
+
+        container.innerHTML += `
+        <div class="ar-interface__menu-container menu-container_left" isopened="false">
+            <div class="menu-container__element_root css-interface-leave" f-interface="leave">
+                <i class="fa fa-chevron-circle-left" f-interface="leave"></i>
+            </div>
+        </div>
+
+        <div class="ar-interface__menu-container menu-container_right" menutype="system" isopened="false" style="display: flex">
+            <div class="menu-container__element_root" f-interface="menutoggler">
+                <i ar-button__menu_main class="fa fa-bars" f-interface="menutoggler"></i>
+            </div>
+            <div class="menu-container__element" f-interface="fullscreentoggler">
+                <i ar-button__menu_main class="fa fa-expand" f-interface="fullscreentoggler"></i>
+            </div>
+            <div class="menu-container__element" f-interface="reloadpage">
+                <i ar-button__menu_main class="fa fa-sync-alt" f-interface="reloadpage"></i>
+            </div>
+        </div>
+        
+        <div class="ar-interface__menu-container menu-container_right" menutype="marker" isopened="false" style="display: none">
+            <div class="menu-container__element_root" f-interface="menutoggler">
+                <i ar-button__menu_main class="fa fa-cube" f-interface="menutoggler"></i>
+            </div>
+            <div class="menu-container__element_list" isopened="false" listid="1">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-cog" f-interface="menulisttoggler"></i>
+                </div>
+                <div class="element-item" f-interface="zoomin">
+                    <i class="fa fa-search-plus" f-interface="zoomin"></i>
+                </div>
+                <div class="element-item" f-interface="zoomout">
+                    <i class="fa fa-search-minus" f-interface="zoomout"></i>
+                </div>
+                <div class="element-item" f-interface="rotateLeft">
+                    <i class="fa fa-undo" f-interface="rotateLeft"></i>
+                </div>
+                <div class="element-item" f-interface="rotateRight">
+                    <i class="fa fa-redo-alt" f-interface="rotateRight"></i>
+                </div>
+            </div>
+            <div class="menu-container__element_list" isopened="false" listid="2">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-info-circle" f-interface="menulisttoggler"></i>
+                </div>
+                <div class="element-item" f-interface="showtitle">
+                    <i class="fa fa-heading" f-interface="showtitle"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-user-circle"></i>
+                </div>
+                <div class="element-item">
+                    <i class="fa fa-align-center"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ar-interface__menu-container menu-container_right" menutype="markers" isopened="false" style="display: none">
+            <div class="menu-container__element_root" f-interface="menutoggler">
+                <i ar-button__menu_main class="fa fa-cubes" f-interface="menutoggler"></i>
+            </div>
+            <div class="menu-container__element_list" isopened="false" listid="1">
+                <div class="element-item_root" f-interface="menulisttoggler">
+                    <i class="fa fa-cog" f-interface="menulisttoggler"></i>
+                </div>
+                <div class="element-item" f-interface="zoomin">
+                    <i class="fa fa-search-plus" f-interface="zoomin"></i>
+                </div>
+                <div class="element-item" f-interface="zoomout">
+                    <i class="fa fa-search-minus" f-interface="zoomout"></i>
+                </div>
+                <div class="element-item" f-interface="rotateLeft">
+                    <i class="fa fa-undo" f-interface="rotateLeft"></i>
+                </div>
+                <div class="element-item" f-interface="rotateRight">
+                    <i class="fa fa-redo-alt" f-interface="rotateRight"></i>
+                </div>
+            </div>
+        </div>
+        `;
+
+        //Add to nodeList three containers:
+
+        this.nodeList.menu_system = document.querySelector("div.ar-interface__menu-container[menutype=system]");
+        this.nodeList.menu_marker = document.querySelector("div.ar-interface__menu-container[menutype=marker]");
+        this.nodeList.menu_markers = document.querySelector("div.ar-interface__menu-container[menutype=markers]");
+
+        // Hide menu and lists of menu:
+        const prepared = ["div.menu-container__element_root[f-interface=menutoggler]", "div.element-item_root[f-interface=menulisttoggler]"]
+        var type = "container";
+
+        prepared.forEach(e => {
+            const arr = document.querySelectorAll(e);
+            arr.forEach(e => {
+                this._menuToggler(type, e);
+                this._menuToggler(type, e);
+            });
+            type = "list";
+        });
     }
+
+    // Marker menu (val : str ("system" || "marker" || "markers"):
     
-    // Args for drawMenu:
-    // INIT_INTERFACE   - set basic functional for user (leave)
-    // MENU_SYSTEM      - menu when markers are not detected (fullscreen, reload page)
-    // MENU_OBJECT      - menu when only one marker was detected
-    // MENU_OBJETS      - menu when objects more than two
+    markerMenu(val) {
+        switch (val) {
+            case "system":
+                this._systemMenu();
+                break;
 
-    drawMenu(args = []) {
-        if (this.exceptions.GENERAL === 1) throw console.error("Interface exception - unknown error");
-        if (args.includes("INIT_INTERFACE") && this.exceptions.INIT_INTERFACE !== 0) {
-            this._initInterface();
-        } else if (args.includes("MENU_SYSTEM") && this.exceptions.MENU_SYSTEM !== 0) {
-            this._menuSystem();
+            case "marker":
+                this._markerMenu();
+                break;
+        
+            case "markers":
+                this._markersMenu();
+                break;
+
+            default:
+                return;
         }
     }
 
-        // returns: bool (0 || 1)
-        //
-        // Args for _deleteMenuElements:
-        // REMOVE_CLASSES       - delete classes of root DOM tag
-        // REMOVE_ID            - delete id of root DOM tag
+    // Current marker:
+    // Flags:
+    //
+    // add (as default)    add marker into array
+    // remove              remove marker from array
 
-        // _deleteMenuElements(element = document.createElement("div"), flags = [], dict = {}) {
-        //     if (typeof element != "object") return 0;
+    currentMarker(marker, flag = "add") {
+        flag == "add" ? this.markers.unshift(marker) : this.markers.splice(marker, 1);
+        return;
+    }
 
-        //     console.log(element.childNodes);
-            
-        //     // Remove some attributes from DOM tag:
+    // Vibration:
 
-        //     switch (flags) {
-        //         case flags.includes("REMOVE_CLASSES"):
-        //             element.setAttribute("class", " ");
-        //             break;
-        //         case flags.includes("REMOVE_ID"):
-        //             element.setAttribute("id", " ");
-        //             break;
-        //     }
+    vibrate(ms) {
+        if("vibrate" in navigator)  return navigator.vibrate(ms);
+        if("oVibrate" in navigator)  return navigator.oVibrate(ms);
+        if("mozVibrate" in navigator)  return navigator.mozVibrate(ms);
+        if("webkitVibrate" in navigator)  return navigator.webkitVibrate(ms);
+        return;
+    }
 
-        //     return 1;
-        // }
+    //Show title function:
 
-        _menuSystem() {
-            
-            // right container:
-            
-            var menu_right = document.querySelector(".menu-container_right");
-                if (typeof menu_right !== "object") {
-                    throw this.interfaceException("MENU_SYSTEM", "incorrect class name or class doesn't exists");
-                } else {
-
-                    // delete everything before:
-                    
-                    // if(this._deleteMenuElements(menu_right, ["REMOVE_CLASSES"]) != 1) {
-                    //     throw this.interfaceException("MENU_SYSTEM", "cannot clear elements in "+menu_right);
-                    // }
-
-                    menu_right.innerHTML = " ";
-
-                }
-                
-                // draw system menu:
-
-                var menu_root_btn = document.createElement("div");
-                    menu_root_btn.classList.add("menu-container__element_root");
-                    menu_root_btn.innerHTML += `<i ar-button__menu_main class="fa fa-bars"></i>`;
-
-                    menu_right.appendChild(menu_root_btn);
-                
-        }
-
-        _initInterface() {
-                        
-            //Create menu containers (left & right):
-            var menu_left = document.createElement("div");
-                menu_left.classList.add("ar-interface__menu-container");
-                menu_left.classList.add("menu-container_left");
-                
-                // leave button:
-
-                var leave_button = document.createElement("div");
-                    leave_button.innerHTML += `<i class="fa fa-chevron-circle-left"></i>`;
-                    leave_button.setAttribute("class", "menu-container__element_root css-interface-leave");
-
-                    menu_left.appendChild(leave_button);
-
-                this.container.appendChild(menu_left);
-            
-            var menu_right = document.createElement("div");
-                menu_right.classList.add("ar-interface__menu-container");
-                menu_right.classList.add("menu-container_right");
-                menu_right.setAttribute("isopened", "false");
-
-            this.container.appendChild(menu_right);
-
-        }
-
-        _generate_token(length) {
-            // edit the token allowed characters
-            var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
-            var b = [];  
-            for (var i=0; i<length; i++) {
-                var j = (Math.random() * (a.length-1)).toFixed(0);
-                b[i] = a[j];
-            }
-            return b.join("");
-        }
-
-
-
-    showTitle(marker = document.createElement()) {
-
-        if (typeof marker.title == "null") return 0;
+    showTitle(marker) {
+        if (typeof marker.title == undefined) return 0;
         
         var token = this._generate_token(16);
 
         var textbox = document.createElement("div");
             textbox.classList.add("ar-title");
             textbox.setAttribute("token", token);
-            textbox.style.visibility = false;
 
-            var box = document.createElement("div");
-                box.classList.add("ar-title__box");
-                box.innerHTML += `<h2 class="ar-title__title"><span class="badge">${marker.title}</span></h2>`;
-
-                textbox.appendChild(box);
+            textbox.innerHTML += `
+                <div class="ar-title__box">
+                    <h2 class="ar-title__title"><span class="badge">${marker.title}</span></h2>
+                </div>
+            `;
             
-
-            // this.body.insertBefore(textbox, this.body.firstChild);
-            this.body.appendChild(textbox);
-
+            this.nodeList.body.appendChild(textbox);
 
         // ANIMATION
-        
-        // ScrollReveal().destroy();
 
-        function afterRevealFunc() {
+        textbox.animate([{opacity: 0}, {opacity: 1}], 350);
+        textbox.style.opacity = 1;
+        setTimeout(() => {
+            textbox.animate([
+                {opacity: 1},
+                {opacity: 0}
+            ], 350);
             setTimeout(() => {
                 textbox.remove();
-            }, 1500);
+            }, 350);
+        }, 1500);
+    }
+
+    // EVENTS:
+
+        // Click:
+
+        btnClickEvent(el) {
+            if (el.hasAttribute("f-interface") == false) return;
+            
+            var func = el.getAttribute("f-interface");
+
+            switch (func) {
+                case "leave":
+                    history.go(-1);
+                break;
+                case "showtitle":
+                    this.markers.forEach(e => {
+                        this.showTitle(e);
+                    });
+                break;
+                case "fullscreentoggler":
+                    this._fullScreenToggler();
+                break;
+                case "reloadpage":
+                    window.location.href = window.location.pathname + window.location.search + window.location.hash;
+                break;
+                case "menutoggler":
+                    this._menuToggler("container", el);
+                break;
+                case "menulisttoggler":
+                    this._menuToggler("list", el);
+                break;
+                case "zoomin":
+                    zoom(this.markers, 1);
+                break;
+                case "zoomout":
+                    zoom(this.markers, 0);
+                break;
+                case "rotateLeft":
+                    rotate(this.markers, 90);
+                break;
+                case "rotateRight":
+                    rotate(this.markers, -90);
+                break;
+            }
+
+            // Close functions to compare equal code:
+
+                // Zoom (in & out)
+                //
+                // markers : array [obj]
+                // m_type : bool      1 - in, 0 - out
+                function zoom(markers, m_type = 0) {
+                    markers.forEach(e => {
+                        var markerObj = new MarkerObj(e, false);
+                        markerObj.zoom({type: m_type});
+                    });
+                }
+
+                // Rotate
+                //
+                // markers : array [obj]
+                // m_angle : int (-360 to 360)
+                function rotate(markers, m_angle = 0) {
+                    markers.forEach(e => {
+                        var markerObj = new MarkerObj(e, true);
+                        markerObj.rotate({angle: m_angle});
+                    });
+                }
         }
 
-        ScrollReveal().reveal(`.ar-title[token="${token}"]`, {
-            delay: 1,
-            scale: 0,
-            distance: '100px',
-            duration: 500,
-            afterReveal: afterRevealFunc,
+
+
+    // Private zone - private functions:
+
+    //Generating unique tokens:
+
+    _generate_token(length) {
+        var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_-+=!.,$#^&*(){}[]|".split("");
+        var b = [];  
+        for (var i=0; i<length; i++) {
+            var j = (Math.random() * (a.length-1)).toFixed(0);
+            b[i] = a[j];
+        }
+        return b.join("");
+    }
+
+    // Some methods for markerMenu:
+
+        //System menu:
+        _systemMenu() {
+            this.nodeList.menu_markers.style.display = "none";
+            this.nodeList.menu_marker.style.display =  "none";
+            this.nodeList.menu_system.style.display =  "flex";
+        }
+
+        //Marker menu:
+        _markerMenu() {
+            this.nodeList.menu_markers.style.display = "none";
+            this.nodeList.menu_marker.style.display =  "flex";
+            this.nodeList.menu_system.style.display =  "none";
+        }
+
+        //Markers menu:
+        _markersMenu() {
+            this.nodeList.menu_markers.style.display = "flex";
+            this.nodeList.menu_marker.style.display =  "none";
+            this.nodeList.menu_system.style.display =  "none";
+        }
+
+    //Fullscreen toggler:
+    _fullScreenToggler() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen(); 
+          }
+        }
+      }
+
+    // MenuToggler:
+    //
+    // Menu Toggler's method:
+    // Attributes:
+    // type : str ("container" || "list")
+    // el : obj (DOM element)
+    _menuToggler(type = "container", el = document.createElement()) {
+        var parentNode = el.parentNode;
+        if (parentNode.hasAttribute("isopened") == false) parentNode = parentNode.parentNode;
+
+        const prepared = type == "list" ? "div.element-item" : "div.menu-container__element, div.menu-container__element_list";
+
+        var childs = parentNode.querySelectorAll(prepared);
+        
+        const attr = parentNode.getAttribute("isopened");
+        const display = attr == "true" ? "none" : "flex";
+        const time = 200;
+        const opacity = attr == "true" ? 1 : 0;
+
+        const isOpenedCondition = attr == "true" ? "false" : "true";
+
+        childs.forEach(e => {
+            e.style.opacity = opacity;
+            if (display == "flex") e.style.display = display;
+
+            e.animate([
+                {opacity: opacity},
+                {opacity: (opacity == 0 ? 1 : 0)}
+            ], time);
+            setTimeout(() => {
+                e.style.opacity = (opacity == 0 ? 1 : 0);
+                if (display == "none") e.style.display = display;
+            }, time);
         });
+        parentNode.setAttribute("isopened", isOpenedCondition);
     }
 }
-
-
-{/* <div class="ar-interface__menu-container menu-container_left" isopened="false">
-    <div class="menu-container__element_root css-interface-leave">
-        <i class="fa fa-chevron-circle-left"></i>
-    </div>
-</div>
-
-<div class="ar-interface__menu-container menu-container_right" isopened="false">
-    <div class="menu-container__element_root">
-        <i ar-button__menu_main class="fa fa-bars"></i>
-    </div>
-    <div class="menu-container__element_list">
-        <div class="element-item_root">
-            <i class="fa fa-cog"></i>
-        </div>
-        <div class="element-item">
-            <i class="fa fa-search-plus"></i>
-        </div>
-        <div class="element-item">
-            <i class="fa fa-search-minus"></i>
-        </div>
-        <div class="element-item">
-            <i class="fa fa-undo"></i>
-        </div>
-        <div class="element-item">
-            <i class="fa fa-redo-alt"></i>
-        </div>
-    </div>
-    <div class="menu-container__element_list">
-        <div class="element-item_root">
-            <i class="fa fa-info-circle"></i>
-        </div>
-        <div class="element-item">
-            <i class="fa fa-heading"></i>
-        </div>
-        <div class="element-item">
-            <i class="fa fa-user-circle"></i>
-        </div>
-        <div class="element-item">
-            <i class="fa fa-align-center"></i>
-        </div>
-    </div>
-</div> */}

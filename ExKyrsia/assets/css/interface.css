@@ -99,9 +99,9 @@
     align-items: flex-end;
 }
 
-.menu-container_right {
-    flex-direction: row-reverse;
-}
+.menu-container_left {flex-direction: row;}
+.menu-container_right {flex-direction: row-reverse;}
+.menu-container_right .menu-container__element_root {margin-right: 0px;}
 
 .menu-container__element {color: var(--interface-c-black);}
 .menu-container__element:hover {
@@ -137,4 +137,10 @@
     transition: all .2s ease-out;
     background: var(--interface-c-blue);
     color: var(--interface-c-white);
+}
+
+/* Some general classes: */
+
+.ar-menu_invisible {
+    visibility: hidden;
 }

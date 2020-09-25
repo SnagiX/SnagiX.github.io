@@ -1,45 +1,73 @@
- 
+// Interface:
+var _interface = new Interface();
+
 document.addEventListener("DOMContentLoaded", () => {
-        
+    
+    _interface.init(document.querySelector(".ar-interface"));
+    _interface.markerMenu("system");
+
+    ScrollReveal().reveal('.ar-interface', {
+        delay: 50,
+        distance: '70px',
+        reset: false,
+        duration: 500,
+        interval: 150,
+        scale: 0.8,
+    });
+    
 });
+
+////////////
+// EVENTS //
+////////////
+
+// AFRAME
 
 AFRAME.registerComponent("eventsmarker", {
     init: function () {
 
+        var marker = this.el;
+
         // Modules:
 
-            // Interface:
-            var interface = new Interface(document.querySelector(".ar-interface"));
-            interface.container = document.querySelector(".ar-interface");
-            interface.drawMenu(["INIT_INTERFACE"]);
-            interface.drawMenu(["MENU_SYSTEM"]);
+            // markerObj:
 
-            ScrollReveal().reveal('.ar-interface', {
-                delay: 50,
-                distance: '70px',
-                reset: true,
-                duration: 500,
-                interval: 150,
-                scale: 0.8
-            });
+            var _markerObj = new MarkerObj(marker, false);
 
-        var marker = this.el;
         marker.setAttribute('emitevents', 'true');
 
         // Events:
 
-            marker.addEventListener('markerFound', function () {
-                // console.log(marker);
-                
+            marker.addEventListener('markerFound', e => {
+
                 // Modules:
 
                     // Interface:
-                    interface.showTitle(marker);
-                        
+                    _interface.currentMarker(marker, "add");
+                    _interface.showTitle(marker);
+                    _interface.vibrate(45);
+                    _interface.markers.length > 1 ? _interface.markerMenu("markers") : _interface.markerMenu("marker");
+                    
             });
 
-            marker.addEventListener('markerLost', function () {
+            marker.addEventListener('markerLost', e => {
+                // Modules:
+
+                    // Interface:
+                    _interface.currentMarker(marker, "remove");
+                    _interface.markers == 0 ? _interface.markerMenu("system") : _interface.markerMenu("marker")
 
             });
     }
+});
+
+// CLICK
+
+document.addEventListener("click", e => {
+    let el = e.target;
+
+    // Interface functions:
+
+    _interface.btnClickEvent(el);
+
 });
