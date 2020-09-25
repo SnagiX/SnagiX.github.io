@@ -87,6 +87,36 @@ class MarkerObj {
 
             this.childNodes[0].setAttribute("scale", scale);
             this._debugShow(`| ZOOM | Done!`);
+            return 1;
+        }
+
+
+        // Rotate:
+        //
+        // Attributes:
+        //
+        // angle : int  from 0 to 359
+
+        rotate({
+            angle = 90
+        }) {
+
+            // Debug:
+            this._debugShow(`| ROTT | trigger was activated (${this.marker.title})`);
+            this._debugShow(`| ROTT | angle: ${angle}`);
+
+            // If angle incorret, throw error
+            if (angle < -360 || angle > 360) {
+                this._debugShow(`| ERR  | Invalid argument for angle`);
+                return 0;
+            }
+
+            let prepared = this.childNodes[0].getAttribute("rotation");
+            prepared.y += angle;
+            
+            this.childNodes[0].setAttribute("rotation", prepared);
+            this._debugShow(`| ROTT | Done!`);
+            return 1;
         }
 
     // Private functions:

@@ -57,11 +57,11 @@ class Interface {
                 <div class="element-item" f-interface="zoomout">
                     <i class="fa fa-search-minus" f-interface="zoomout"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-undo"></i>
+                <div class="element-item" f-interface="rotateLeft">
+                    <i class="fa fa-undo" f-interface="rotateLeft"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-redo-alt"></i>
+                <div class="element-item" f-interface="rotateRight">
+                    <i class="fa fa-redo-alt" f-interface="rotateRight"></i>
                 </div>
             </div>
             <div class="menu-container__element_list" isopened="false" listid="2">
@@ -94,11 +94,11 @@ class Interface {
                 <div class="element-item" f-interface="zoomout">
                     <i class="fa fa-search-minus" f-interface="zoomout"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-undo"></i>
+                <div class="element-item" f-interface="rotateLeft">
+                    <i class="fa fa-undo" f-interface="rotateLeft"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-redo-alt"></i>
+                <div class="element-item" f-interface="rotateRight">
+                    <i class="fa fa-redo-alt" f-interface="rotateRight"></i>
                 </div>
             </div>
         </div>
@@ -236,6 +236,12 @@ class Interface {
                 case "zoomout":
                     zoom(this.markers, 0);
                 break;
+                case "rotateLeft":
+                    rotate(this.markers, 90);
+                break;
+                case "rotateRight":
+                    rotate(this.markers, -90);
+                break;
             }
 
             // Close functions to compare equal code:
@@ -243,11 +249,22 @@ class Interface {
                 // Zoom (in & out)
                 //
                 // markers : array [obj]
-                // mtype : bool      1 - in, 0 - out
-                function zoom(markers, mtype = 0) {
+                // m_type : bool      1 - in, 0 - out
+                function zoom(markers, m_type = 0) {
                     markers.forEach(e => {
                         var markerObj = new MarkerObj(e, false);
-                        markerObj.zoom({type: mtype});
+                        markerObj.zoom({type: m_type});
+                    });
+                }
+
+                // Rotate
+                //
+                // markers : array [obj]
+                // m_angle : int (-360 to 360)
+                function rotate(markers, m_angle = 0) {
+                    markers.forEach(e => {
+                        var markerObj = new MarkerObj(e, true);
+                        markerObj.rotate({angle: m_angle});
                     });
                 }
         }
