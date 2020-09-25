@@ -25,7 +25,7 @@
         <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet" />
 
         <!-- CSS -->
-        <link href="assets/css/interface.css" rel="stylesheet" />
+        <link href="../assets/css/ExKyrsia/interface.css" rel="stylesheet" />
 
         <!-- JS -->
 
@@ -37,10 +37,10 @@
             <script src="https://unpkg.com/scrollreveal"></script>
 
             <!-- MODULES -->
-            <script src="assets/js/markerObj/markerObj.js"></script>
-            <script src="assets/js/interface/interface.js"></script>
+            <script src="../assets/js/ar/markerObj/markerObj.js"></script>
+            <script src="../assets/js/ar/interface/interface.js"></script>
         
-        <script src="assets/js/ar.js"></script>
+        <script src="../assets/js/ar/ar.js"></script>
 
     </head>
     <body
@@ -70,7 +70,7 @@
             embedded
         >
             <a-entity camera></a-entity>
-            <a-marker title="Маркер - VR headset demo" type='pattern' url="assets/referenses/markers/1.patt" eventsmarker>
+            <a-marker title="Маркер - VR headset demo" type='pattern' url="../assets/referenses/markers/1.patt" eventsmarker>
 
                 <!-- Layers of ar object: -->
                 <!-- FRIST: editing (scale, position, rotation, etc.) (ID : 0) -->
@@ -89,7 +89,7 @@
                         >
 
                             <!-- Finally goes model (ID : 3) -->
-                            <a-entity gltf-model="assets/referenses/models/1/1.gltf">
+                            <a-entity gltf-model="../assets/referenses/models/1/1.gltf">
 
                                 <!-- Light could be here, but I'll remove it in product-version -->
                                 <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
@@ -102,7 +102,7 @@
                     </a-entity>
                 </a-entity>
             </a-marker>
-            <a-marker title="Маркер - какой-то лес" type='pattern' url="assets/referenses/markers/2.patt" eventsmarker>
+            <a-marker title="Маркер - какой-то лес" type='pattern' url="../assets/referenses/markers/2.patt" eventsmarker>
                 
                 <!-- Layers of ar object: -->
                 <!-- FRIST: editing (scale, position, rotation, etc.) (ID : 0) -->
@@ -121,7 +121,7 @@
                         >
 
                             <!-- Finally goes model (ID : 3) -->
-                            <a-entity gltf-model="assets/referenses/models/2/2.gltf">
+                            <a-entity gltf-model="../assets/referenses/models/2/2.gltf">
 
                                 <!-- Light could be here, but I'll remove it in product-version -->
                                 <a-light type="ambient" intensity="0.7" position="0 0 0"></a-light>
