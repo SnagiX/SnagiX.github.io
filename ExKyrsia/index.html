@@ -70,7 +70,17 @@
             embedded
         >
             <a-entity camera></a-entity>
-            <a-marker title="Маркер - VR headset demo" type='pattern' url="../assets/referenses/markers/1.patt" eventsmarker>
+            
+            <!-- 
+                A-marker - Attributes: 
+                    1. m_type (custom || videoplayer)   custom - custom markers without any categories
+                                                        videoplayer - set marker as a video player
+            -->
+            <a-marker title="Маркер - VR headset demo" m_id="1" m_type="custom" type='pattern' url="../assets/referenses/markers/1.patt" eventsmarker>
+
+                <div class="ar-info-container" m_id="1">
+
+                </div>
 
                 <!-- Layers of ar object: -->
                 <!-- FRIST: editing (scale, position, rotation, etc.) (ID : 0) -->
@@ -102,8 +112,12 @@
                     </a-entity>
                 </a-entity>
             </a-marker>
-            <a-marker title="Маркер - какой-то лес" type='pattern' url="../assets/referenses/markers/2.patt" eventsmarker>
+            <a-marker title="Маркер - какой-то лес" m_id="2" m_type="custom" type='pattern' url="../assets/referenses/markers/2.patt" eventsmarker>
                 
+                <div class="ar-info-container" m_id="2">
+
+                </div>
+
                 <!-- Layers of ar object: -->
                 <!-- FRIST: editing (scale, position, rotation, etc.) (ID : 0) -->
                 <a-entity class="ar-obj_edit"

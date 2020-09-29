@@ -50,7 +50,7 @@ class Interface {
             <div class="menu-container__element_list" isopened="false" listid="1">
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-cog" f-interface="menulisttoggler"></i>
-                </div>
+                </div> 
                 <div class="element-item" f-interface="zoomin">
                     <i class="fa fa-search-plus" f-interface="zoomin"></i>
                 </div>
@@ -71,11 +71,8 @@ class Interface {
                 <div class="element-item" f-interface="showtitle">
                     <i class="fa fa-heading" f-interface="showtitle"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-user-circle"></i>
-                </div>
-                <div class="element-item">
-                    <i class="fa fa-align-center"></i>
+                <div class="element-item" f-interface="showdescription">
+                    <i class="fa fa-align-center" f-interface="showdescription"></i>
                 </div>
             </div>
         </div>
@@ -166,7 +163,7 @@ class Interface {
         return;
     }
 
-    //Show title function:
+    // Show title function:
 
     showTitle(marker) {
         if (typeof marker.title == undefined) return 0;
@@ -200,6 +197,22 @@ class Interface {
         }, 1500);
     }
 
+    // Show description function:
+
+    showDescription(marker) {
+        if (typeof marker == "undefined") return 0;
+
+        let m_id = marker.getAttribute("m_id");
+
+        if (typeof m_id == "undefined") return 0;
+
+        var inf_container = document.querySelector(`div[m_id="${m_id}"]`);
+
+        
+
+        console.log(inf_container);
+    }
+ 
     // EVENTS:
 
         // Click:
@@ -216,6 +229,11 @@ class Interface {
                 case "showtitle":
                     this.markers.forEach(e => {
                         this.showTitle(e);
+                    });
+                break;
+                case "showdescription":
+                    this.markers.forEach(e => {
+                        this.showDescription(e);
                     });
                 break;
                 case "fullscreentoggler":
