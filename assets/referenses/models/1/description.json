@@ -1,10 +1,12 @@
 {
     "id": 1,
-    "title": "VR headset demo",
-    "type": "custom",
-    "description": "Вторая демо - модель нашего проекта",
-    "published": "11.09.2020 13:57:00",
+    "info": {
+        "title": "VR headset demo",
+        "description": "Вторая демо - модель нашего проекта",
+        "published": "11.09.2020 13:57:00"
+    },
     "config": {
+        "type": "custom",
         "smooth": false,
         "fadeIn": true,
         "patt_url": "assets/referenses/markers/1.patt",
