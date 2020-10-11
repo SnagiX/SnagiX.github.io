@@ -101,7 +101,7 @@ class Interface {
         </div>
         `;
 
-        //Add to nodeList three containers:
+        // Add to nodeList three containers:
 
         this.nodeList.menu_system = document.querySelector("div.ar-interface__menu-container[menutype=system]");
         this.nodeList.menu_marker = document.querySelector("div.ar-interface__menu-container[menutype=marker]");
@@ -115,7 +115,7 @@ class Interface {
             const arr = document.querySelectorAll(e);
             arr.forEach(e => {
                 this._menuToggler(type, e);
-                this._menuToggler(type, e);
+                // this._menuToggler(type, e);
             });
             type = "list";
         });
@@ -124,6 +124,7 @@ class Interface {
     // Marker menu (val : str ("system" || "marker" || "markers"):
     
     markerMenu(val) {
+        console.log(val);
         switch (val) {
             case "system":
                 this._systemMenu();
@@ -156,6 +157,7 @@ class Interface {
     // Vibration:
 
     vibrate(ms) {
+        return;
         if("vibrate" in navigator)  return navigator.vibrate(ms);
         if("oVibrate" in navigator)  return navigator.oVibrate(ms);
         if("mozVibrate" in navigator)  return navigator.mozVibrate(ms);
@@ -307,23 +309,23 @@ class Interface {
 
         //System menu:
         _systemMenu() {
-            this.nodeList.menu_markers.style.display = "none";
-            this.nodeList.menu_marker.style.display =  "none";
-            this.nodeList.menu_system.style.display =  "flex";
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "flex";
         }
 
         //Marker menu:
         _markerMenu() {
-            this.nodeList.menu_markers.style.display = "none";
-            this.nodeList.menu_marker.style.display =  "flex";
-            this.nodeList.menu_system.style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "flex";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "none";
         }
 
         //Markers menu:
         _markersMenu() {
-            this.nodeList.menu_markers.style.display = "flex";
-            this.nodeList.menu_marker.style.display =  "none";
-            this.nodeList.menu_system.style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "flex";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "none";
         }
 
     //Fullscreen toggler:

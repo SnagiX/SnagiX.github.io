@@ -37,6 +37,8 @@
             <script src="https://unpkg.com/scrollreveal"></script>
 
             <!-- MODULES -->
+            <script src="../assets/js/ar/SceneController/SceneController.js"></script>
+            <script src="../assets/js/ar/WebController/WebController.js"></script>
             <script src="../assets/js/ar/markerObj/markerObj.js"></script>
             <script src="../assets/js/ar/interface/interface.js"></script>
         
@@ -52,104 +54,6 @@
         <div class="ar-interface">
             
         </div>
-        <a-scene 
-            vr-mode-ui="false" 
-            arjs='
-                sourceType: webcam; 
-                debugUIEnabled: false; 
-                detectionMode: color_and_matrix; 
-                trackingMethod: best; 
-                matrixCodeType: 4x4; 
-                sourceWidth: 1280; 
-                sourceHeight: 960; 
-                displayWidth: 1280; 
-                displayHeight: 960;
-                patternRatio: 0.85;
-            '
-            inspector="url: xxx" 
-            embedded
-        >
-            <a-entity camera></a-entity>
-            
-            <!-- 
-                A-marker - Attributes: 
-                    1. m_type (custom || videoplayer)   custom - custom markers without any categories
-                                                        videoplayer - set marker as a video player
-                    2. m_id : int                       Unique id of marker
-                    3. type : title                     title of
-            -->
-            <a-marker title="Маркер - VR headset demo" m_id="1" m_type="custom" type='pattern' url="../assets/referenses/markers/1.patt" eventsmarker>
-
-                <div class="ar-info-container" m_id="1">
-
-                </div>
-
-                <!-- Layers of ar object: -->
-                <!-- FRIST: editing (scale, position, rotation, etc.) (ID : 0) -->
-                <a-entity class="ar-obj_edit"
-                    scale="0.5 0.5 0.5"
-                    rotation="-90 0 0"
-                    position="0 -0.75 0"
-                >
-                    <!-- SECOND: goes animation layer (scaleUp & Down, rotation, etc.) (ID : 1) -->
-                    <a-entity class="ar-obj_animation"
-                    
-                    >
-                        <!-- THIRD: goes container of models (but now in databses only one model keeps) (ID : 2) -->
-                        <a-entity class="ar-obj_container"
-                        
-                        >
-
-                            <!-- Finally goes model (ID : 3) -->
-                            <a-entity gltf-model="../assets/referenses/models/1/1.gltf">
-
-                                <!-- Light could be here, but I'll remove it in product-version -->
-                                <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
-                                <a-light type="point" intensity="1" position="0 0 -1.2"></a-light>
-                                
-                            </a-entity>
-
-                        </a-entity>
-
-                    </a-entity>
-                </a-entity>
-            </a-marker>
-            <a-marker title="Маркер - какой-то лес" m_id="2" m_type="custom" type='pattern' url="../assets/referenses/markers/2.patt" eventsmarker>
-                
-                <div class="ar-info-container" m_id="2">
-
-                </div>
-
-                <!-- Layers of ar object: -->
-                <!-- FRIST: editing (scale, position, rotation, etc.) (ID : 0) -->
-                <a-entity class="ar-obj_edit"
-                    scale="0.5 0.5 0.5"
-                    rotation="0 0 0"
-                    position="0 0 0"
-                >
-                    <!-- SECOND: goes animation layer (scaleUp & Down, rotation, etc.) (ID : 1) -->
-                    <a-entity class="ar-obj_animation"
-                    
-                    >
-                        <!-- THIRD: goes container of models (ID : 2) -->
-                        <a-entity class="ar-obj_container"
-                        
-                        >
-
-                            <!-- Finally goes model (ID : 3) -->
-                            <a-entity gltf-model="../assets/referenses/models/2/2.gltf">
-
-                                <!-- Light could be here, but I'll remove it in product-version -->
-                                <a-light type="ambient" intensity="0.7" position="0 0 0"></a-light>
         
-                            </a-entity>
-
-                        </a-entity>
-
-                    </a-entity>
-                </a-entity>
-            </a-marker>
-        </a-scene>
-
     </body>
 </html>
