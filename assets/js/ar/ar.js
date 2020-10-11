@@ -1,11 +1,16 @@
 // Interface:
-var _interface = new Interface();
+    var _interface = new Interface();
+
+// Web Controller:
+    var _webController = new WebController();
+
+// Scene Controller:
+    var _sceneController = new SceneController();
+    
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    _interface.init(document.querySelector(".ar-interface"));
-    _interface.markerMenu("system");
-
+    // Animations:
     ScrollReveal().reveal('.ar-interface', {
         delay: 50,
         distance: '70px',
@@ -14,7 +19,24 @@ document.addEventListener("DOMContentLoaded", () => {
         interval: 150,
         scale: 0.8,
     });
-    
+
+    // Init interface:
+    _interface.init(document.querySelector(".ar-interface"));
+    _interface.markerMenu("system");
+
+
+
+
+
+    // Change scene container:
+    _sceneController.data.body = document.querySelector("body");
+
+    // Receive markers:
+    _webController.downloadMarkers(() => {
+        // Create scene with received markers:
+        _sceneController.scene("create", _webController.markersdata.value);
+    });
+
 });
 
 ////////////
@@ -55,7 +77,7 @@ AFRAME.registerComponent("eventsmarker", {
 
                     // Interface:
                     _interface.currentMarker(marker, "remove");
-                    _interface.markers == 0 ? _interface.markerMenu("system") : _interface.markerMenu("marker")
+                    _interface.markers == 0 ? _interface.markerMenu("system") : _interface.markerMenu("marker");
 
             });
     }

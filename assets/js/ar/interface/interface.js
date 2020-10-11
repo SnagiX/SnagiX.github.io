@@ -50,7 +50,7 @@ class Interface {
             <div class="menu-container__element_list" isopened="false" listid="1">
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-cog" f-interface="menulisttoggler"></i>
-                </div>
+                </div> 
                 <div class="element-item" f-interface="zoomin">
                     <i class="fa fa-search-plus" f-interface="zoomin"></i>
                 </div>
@@ -71,11 +71,8 @@ class Interface {
                 <div class="element-item" f-interface="showtitle">
                     <i class="fa fa-heading" f-interface="showtitle"></i>
                 </div>
-                <div class="element-item">
-                    <i class="fa fa-user-circle"></i>
-                </div>
-                <div class="element-item">
-                    <i class="fa fa-align-center"></i>
+                <div class="element-item" f-interface="showdescription">
+                    <i class="fa fa-align-center" f-interface="showdescription"></i>
                 </div>
             </div>
         </div>
@@ -104,7 +101,7 @@ class Interface {
         </div>
         `;
 
-        //Add to nodeList three containers:
+        // Add to nodeList three containers:
 
         this.nodeList.menu_system = document.querySelector("div.ar-interface__menu-container[menutype=system]");
         this.nodeList.menu_marker = document.querySelector("div.ar-interface__menu-container[menutype=marker]");
@@ -118,7 +115,7 @@ class Interface {
             const arr = document.querySelectorAll(e);
             arr.forEach(e => {
                 this._menuToggler(type, e);
-                this._menuToggler(type, e);
+                // this._menuToggler(type, e);
             });
             type = "list";
         });
@@ -127,6 +124,7 @@ class Interface {
     // Marker menu (val : str ("system" || "marker" || "markers"):
 
     markerMenu(val) {
+        console.log(val);
         switch (val) {
             case "system":
                 this._systemMenu();
@@ -159,6 +157,7 @@ class Interface {
     // Vibration:
 
     vibrate(ms) {
+        return;
         if("vibrate" in navigator)  return navigator.vibrate(ms);
         if("oVibrate" in navigator)  return navigator.oVibrate(ms);
         if("mozVibrate" in navigator)  return navigator.mozVibrate(ms);
@@ -166,7 +165,7 @@ class Interface {
         return;
     }
 
-    //Show title function:
+    // Show title function:
 
     showTitle(marker) {
         if (typeof marker.title == undefined) return 0;
@@ -200,6 +199,22 @@ class Interface {
         }, 1500);
     }
 
+    // Show description function:
+
+    showDescription(marker) {
+        if (typeof marker == "undefined") return 0;
+
+        let m_id = marker.getAttribute("m_id");
+
+        if (typeof m_id == "undefined") return 0;
+
+        var inf_container = document.querySelector(`div[m_id="${m_id}"]`);
+
+        
+
+        console.log(inf_container);
+    }
+ 
     // EVENTS:
 
         // Click:
@@ -216,6 +231,11 @@ class Interface {
                 case "showtitle":
                     this.markers.forEach(e => {
                         this.showTitle(e);
+                    });
+                break;
+                case "showdescription":
+                    this.markers.forEach(e => {
+                        this.showDescription(e);
                     });
                 break;
                 case "fullscreentoggler":
@@ -289,23 +309,23 @@ class Interface {
 
         //System menu:
         _systemMenu() {
-            this.nodeList.menu_markers.style.display = "none";
-            this.nodeList.menu_marker.style.display =  "none";
-            this.nodeList.menu_system.style.display =  "flex";
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "flex";
         }
 
         //Marker menu:
         _markerMenu() {
-            this.nodeList.menu_markers.style.display = "none";
-            this.nodeList.menu_marker.style.display =  "flex";
-            this.nodeList.menu_system.style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "flex";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "none";
         }
 
         //Markers menu:
         _markersMenu() {
-            this.nodeList.menu_markers.style.display = "flex";
-            this.nodeList.menu_marker.style.display =  "none";
-            this.nodeList.menu_system.style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=markers]").style.display = "flex";
+            document.querySelector("div.ar-interface__menu-container[menutype=marker]").style.display =  "none";
+            document.querySelector("div.ar-interface__menu-container[menutype=system]").style.display =  "none";
         }
 
     //Fullscreen toggler:
