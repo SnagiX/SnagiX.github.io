@@ -92,6 +92,24 @@ class SceneController {
         var res = "";
 
         container.markers.forEach(el => {
+            console.log(el.childnodes);
+
+            let light_res = "";
+
+            el.childnodes.forEach(l => {
+                light_res += `
+                    <${l.tag}
+                    
+                    u_id="${l.u_id}",
+                    m_id="${l.id}",
+                    position="${l.position_x} ${l.position_y} ${l.position_z}",
+                    type="${l.type}",
+                    insensity="${l.insensity}"
+
+                    ></${l.tag}>
+                `;
+            });
+
             res += `
             <a-marker title="${el.info.title}" m_id="${el.id}" m_type="${el.config.type}" type='pattern' url="${el.config.pattern_link}" eventsmarker>
 
@@ -118,9 +136,8 @@ class SceneController {
                             <!-- Finally goes model (ID : 3) -->
                             <a-entity gltf-model="${el.config.model_link}">
 
-                                <!-- Light could be here, but I'll remove it in product-version -->
-                                <a-light type="ambient" intensity="4" position="0 0 0"></a-light>
-                                <a-light type="point" intensity="1" position="0 0 -1.2"></a-light>
+                                <!-- Light could be here, I don't sure of using it -->
+                                ${light_res}
                                 
                             </a-entity>
 

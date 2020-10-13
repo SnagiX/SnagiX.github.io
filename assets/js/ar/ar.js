@@ -9,7 +9,11 @@
     
 
 document.addEventListener("DOMContentLoaded", () => {
-    
+
+    // Init interface:
+    _interface.init(document.querySelector(".ar-interface"));
+    _interface.markerMenu("system");
+
     // Animations:
     ScrollReveal().reveal('.ar-interface', {
         delay: 50,
@@ -19,12 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
         interval: 150,
         scale: 0.8,
     });
-
-    // Init interface:
-    _interface.init(document.querySelector(".ar-interface"));
-    _interface.markerMenu("system");
-
-
 
 
 

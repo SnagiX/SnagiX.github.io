@@ -25,13 +25,13 @@ class Interface {
         this.nodeList.container = container;
 
         container.innerHTML += `
-        <div class="ar-interface__menu-container menu-container_left" isopened="false">
+        <div class="ar-interface__menu-container menu-container_left" isopened="true">
             <div class="menu-container__element_root css-interface-leave" f-interface="leave">
                 <i class="fa fa-chevron-circle-left" f-interface="leave"></i>
             </div>
         </div>
 
-        <div class="ar-interface__menu-container menu-container_right" menutype="system" isopened="false" style="display: flex">
+        <div class="ar-interface__menu-container menu-container_right" menutype="system" isopened="true" style="display: flex">
             <div class="menu-container__element_root" f-interface="menutoggler">
                 <i ar-button__menu_main class="fa fa-bars" f-interface="menutoggler"></i>
             </div>
@@ -43,11 +43,11 @@ class Interface {
             </div>
         </div>
         
-        <div class="ar-interface__menu-container menu-container_right" menutype="marker" isopened="false" style="display: none">
+        <div class="ar-interface__menu-container menu-container_right" menutype="marker" isopened="true" style="display: none">
             <div class="menu-container__element_root" f-interface="menutoggler">
                 <i ar-button__menu_main class="fa fa-cube" f-interface="menutoggler"></i>
             </div>
-            <div class="menu-container__element_list" isopened="false" listid="1">
+            <div class="menu-container__element_list" isopened="true" listid="1">
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-cog" f-interface="menulisttoggler"></i>
                 </div> 
@@ -64,7 +64,7 @@ class Interface {
                     <i class="fa fa-redo-alt" f-interface="rotateRight"></i>
                 </div>
             </div>
-            <div class="menu-container__element_list" isopened="false" listid="2">
+            <div class="menu-container__element_list" isopened="true" listid="2">
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-info-circle" f-interface="menulisttoggler"></i>
                 </div>
@@ -77,11 +77,11 @@ class Interface {
             </div>
         </div>
         
-        <div class="ar-interface__menu-container menu-container_right" menutype="markers" isopened="false" style="display: none">
+        <div class="ar-interface__menu-container menu-container_right" menutype="markers" isopened="true" style="display: none">
             <div class="menu-container__element_root" f-interface="menutoggler">
                 <i ar-button__menu_main class="fa fa-cubes" f-interface="menutoggler"></i>
             </div>
-            <div class="menu-container__element_list" isopened="false" listid="1">
+            <div class="menu-container__element_list" isopened="true" listid="1">
                 <div class="element-item_root" f-interface="menulisttoggler">
                     <i class="fa fa-cog" f-interface="menulisttoggler"></i>
                 </div>
@@ -115,7 +115,7 @@ class Interface {
             const arr = document.querySelectorAll(e);
             arr.forEach(e => {
                 this._menuToggler(type, e);
-                // this._menuToggler(type, e);
+                this._menuToggler(type, e);
             });
             type = "list";
         });
@@ -346,33 +346,68 @@ class Interface {
     // type : str ("container" || "list")
     // el : obj (DOM element)
     _menuToggler(type = "container", el = document.createElement()) {
+
+        // Get parent node from button (or icon):
         var parentNode = el.parentNode;
+
         if (parentNode.hasAttribute("isopened") == false) parentNode = parentNode.parentNode;
 
+        // What class we need to select:
         const prepared = type == "list" ? "div.element-item" : "div.menu-container__element, div.menu-container__element_list";
 
+        // Get all childs:
         var childs = parentNode.querySelectorAll(prepared);
+
+            // If "isopened" == false, but display != "none":
+            if (parentNode.getAttribute("isopened") == "false" && childs[0].style.display != "none") {
+                childs.forEach(e => {
+                    // Set display:
+                    e.style.display = "none";
+                });
+            }
         
+        // Get "isopened" attribute:
         const attr = parentNode.getAttribute("isopened");
+        
+        // Get "display" attribute:
         const display = attr == "true" ? "none" : "flex";
+        
+        // Set "time" attribute:
         const time = 200;
+
+        // Get "opacity" attribute:
         const opacity = attr == "true" ? 1 : 0;
 
+        // Action:
         const isOpenedCondition = attr == "true" ? "false" : "true";
-
+        
+        // Edit each element:
         childs.forEach(e => {
+
+            // Set primary opacity:
             e.style.opacity = opacity;
+            
+            // Hide or show (display) (none | flex):
             if (display == "flex") e.style.display = display;
 
+            // Animation of opacity:
             e.animate([
                 {opacity: opacity},
+
                 {opacity: (opacity == 0 ? 1 : 0)}
+
             ], time);
+
+            // Timeout (when animation ended):
             setTimeout(() => {
                 e.style.opacity = (opacity == 0 ? 1 : 0);
+
                 if (display == "none") e.style.display = display;
+
             }, time);
         });
+        
+        // Set new condition:
         parentNode.setAttribute("isopened", isOpenedCondition);
     }
 }
