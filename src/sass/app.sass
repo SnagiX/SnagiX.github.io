@@ -1,3 +1,282 @@
+// VARIABLES
+    
+$colors_primary: #247316, #8CF779, #4CF52F, #45753D, #3CC225
+$colors_grey: #6f706f, #F2F4F2, #F2F4F2, #717271, #BFC1BF
+
+$font-family: Gotham Pro, Century Gothic, AppleGothic, arial, sans-serif
+
+$GothamPro-font-path: '../../assets/fonts/GothamPro/GothamPro'
+
+// MIXINS
+
+    // FONT
+@mixin font($font-family, $font-file, $font-weight: "normal", $font-style: "normal")
+  @font-face
+    font-family: $font-family
+    src: url($font-file+'.eot')
+    src: url($font-file+'.eot?#iefix') format('embedded-opentype')
+    src: url($font-file+'.woff') format('woff')
+    src: url($font-file+'.ttf') format('truetype')
+    font-weight: $font-weight
+    font-style: $font-style
+  
+    // FLEX - CENTER
+@mixin flex-center
+    display: flex
+    justify-content: center
+    align-content: center
+    flex-wrap: wrap
+    text-align: center
+
+
+    
+// Browser Prefixes
+@mixin transform($transforms) 
+	-webkit-transform: $transforms
+	-moz-transform: $transforms
+	-ms-transform: $transforms
+	transform: $transforms
+
+
+// Rotate
+@mixin rotate ($deg) 
+	@include transform(rotate(#{$deg}deg))
+
+
+// Scale
+@mixin scale($scale) 
+	@include transform(scale($scale))
+
+
+// Translate
+@mixin translate ($x, $y) 
+	@include transform(translate($x, $y))
+
+
+// Skew
+@mixin skew ($x, $y) 
+	@include transform(skew(#{$x}deg, #{$y}deg))
+
+
+// Transform Origin
+@mixin transform-origin($origin) 
+	transform-origin: $origin
+
+
+
+// IMPORTS
+
+    // GOTHAM PRO
+@include font('Gotham Pro', $GothamPro-font-path)
+@include font('Gotham Pro', $GothamPro-font-path + "-Light", 300)
+@include font('Gotham Pro', $GothamPro-font-path + "-Medium", 500)
+@include font('Gotham Pro', $GothamPro-font-path + "-Bold", "bold")
+// @include font('Gotham Pro', $GothamPro-font-path + "-Black", 900)
+
+@include font('Gotham Pro Narrow', $GothamPro-font-path + "Narrow-Light", 300)
+@include font('Gotham Pro Narrow', $GothamPro-font-path + "Narrow-Medium", 500)
+@include font('Gotham Pro Narrow', $GothamPro-font-path + "Narrow-Bold", "bold")
+
+
+
 *
     padding: 0
     margin: 0
+    font-family: $font-family !important
+    box-sizing: border-box
+
+.flex-center > *
+    @include flex-center
+
+// FONTS
+
+h1
+    font-size: 3rem
+
+h1, h2, h3, h4, h5, h6
+    font-weight: bold !important
+    
+a
+    color: nth($colors_primary, 5)
+
+a:hover
+    color: nth($colors_primary, 4)
+
+p, a, label, div, input, button, span
+    font-size: 1.4rem
+    font-weight: 500 !important
+
+hr
+    border: 1px solid nth($colors_grey, 1)
+    border-radius: 1px
+    color: rgba(111, 112, 111, 0.7)
+
+.narrow, .narrow *
+    font-family: Gotham Pro Narrow, $font-family !important
+
+.text-light
+    font-weight: 300 !important
+    
+.intro
+    text-align: center
+    min-height: 100vh
+    padding: 0 !important
+
+    .intro_container
+        @include flex-center
+
+    .intro_box
+        padding: 30px !important
+
+    .mask
+        background: rgba(0, 0, 0, 0)
+
+    .ufo
+        width: 300px 
+        height: 300px
+
+        img
+            @include rotate(-25)
+            
+
+.sn_main
+    padding: 2rem
+
+    section
+        .title
+            display: inline
+            padding: 10px
+            border-radius: 10px
+            margin-bottom: 20px
+            color: nth($colors_primary, 5)
+            background: nth($colors_grey, 2)
+
+        .content
+            padding-bottom: 40px
+
+        .content > *
+            margin: 30px auto
+
+        .content *
+            margin: 15px auto
+
+// BUTTONS
+
+.btn
+    color: nth($colors_primary, 5)
+    background: nth($colors_grey, 3)
+
+.btn:hover
+    color: white
+    background: nth($colors_grey, 4)
+
+.btn-2 
+    background: nth($colors_primary, 3) !important
+    color: black !important
+
+.btn-2:hover
+    color: nth($colors_primary, 3) !important
+    background: nth($colors_grey, 4) !important
+
+// COLOR - LIST
+
+.color-list
+    text-align: center
+    *
+        @include flex-center
+    .left
+        display: inline
+        padding: 10px
+        border-radius: 20px
+        font-weight: 300 !important
+    .right
+        padding: 0px 20px 0px 20px
+
+footer
+    text-align: center
+    padding: 20px
+
+// NAV
+
+.nav
+    height: 50px
+    width: 100%
+    position: relative
+
+    .nav-header
+        display: inline
+
+        .nav-title
+            display: inline-block
+            font-size: 22px
+            color: #fff
+            padding: 10px 10px 10px 20px
+
+    .nav-btn
+        display: none
+
+    .nav-links
+        display: inline
+        float: right
+        font-size: 18px
+
+        a
+            display: inline-block
+            padding: 13px 10px 13px 10px
+            text-decoration: none
+            color: #efefef
+
+        a:hover
+            background-color: rgba(0, 0, 0, 0.3)
+    
+    #nav-check
+        display: none
+
+
+@media (max-width: 1920px)
+    .nav
+        .nav-btn
+            display: inline-block
+            position: absolute
+            right: 0px
+            top: 0px
+            
+            .label
+                display: inline-block
+                width: 50px
+                height: 50px
+                padding: 13px
+                
+                span
+                    display: block
+                    width: 25px
+                    height: 10px
+                    border-top: 2px solid #eee
+            
+            .label:hover, #nav-check:checked ~ .nav-btn > label
+                background-color: rgba(0, 0, 0, 0.3)
+            
+        .nav-links
+            position: absolute
+            display: block
+            width: 100%
+            background-color: #333
+            height: 0px
+            transition: all 0.3s ease-in
+            overflow-y: hidden
+            top: 50px
+            left: 0px
+
+            a
+                display: block
+                width: 100%
+
+
+    .nav > #nav-check:not(:checked) ~ .nav-links 
+        height: 0px
+    
+    .nav > #nav-check:checked ~ .nav-links 
+        height: calc(100vh - 50px)
+        overflow-y: auto
+    
+            
